@@ -3,9 +3,15 @@ export type THashMap = {
   ar: string;
 };
 
-export type AppRoute = {
+export type TAppRoute = {
   path?: string;
   index?: boolean;
   handle?: { label?: THashMap };
-  children?: AppRoute[];
+  children?: TAppRoute[];
+};
+
+export type TTask = {
+  text: string;
+  date: string;
+  done: boolean;
 };

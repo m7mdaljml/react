@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { routes } from "../../../sitemap";
-import type { AppRoute } from "../../../domain/meta/i-types";
 import { useEffect, useState } from "react";
+import i18n from "../../../i18n/index.i18n";
+import type { TAppRoute } from "../../../domain/meta/i-types";
 
-const extractRoutes = (routeList: AppRoute[], parentPath = "") => {
-  let result = [] as AppRoute[];
+const extractRoutes = (routeList: TAppRoute[], parentPath = "") => {
+  let result = [] as TAppRoute[];
   routeList.forEach((route) => {
     const fullPath = route.path ? `${parentPath}${route.path}` : parentPath;
     if (route.handle?.label) {
@@ -30,11 +31,12 @@ const Navbar = () => {
   useEffect(() => {
     document.documentElement.dir = lang == "ar" ? "rtl" : "ltr";
     document.documentElement.lang = lang;
+    i18n.changeLanguage(lang);
     localStorage.setItem("lang", lang);
   }, [lang]);
 
   const toggleLang = () => {
-    setLang((l) => (l == "en" ? "ar" : "en"));
+    setLang((lang) => (lang == "en" ? "ar" : "en"));
   };
 
   return (
