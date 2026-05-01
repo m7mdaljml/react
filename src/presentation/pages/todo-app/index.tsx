@@ -14,11 +14,14 @@ const TODO = () => {
     return stored ? JSON.parse(stored) : [];
   });
   const { t } = useTranslation();
-
+  const [inputValidity, setInputValidity] = useState<boolean>(true);
   const handleAddTask = () => {
     if (newTask.text.trim() !== "") {
       setTasks([newTask, ...tasks]);
       setNewTask({ text: "", done: false, date: new Date().toISOString() });
+      setInputValidity(true);
+    } else {
+      setInputValidity(false);
     }
   };
 
@@ -43,7 +46,7 @@ const TODO = () => {
                 })
               }
               type="text"
-              className="form-control"
+              className={`form-control ${!inputValidity ? "border border-danger" : ""}`}
               placeholder={t("todo.addNewTask")}
             />
             <button
@@ -53,6 +56,9 @@ const TODO = () => {
               <FaPlus /> {t("todo.add")}
             </button>
           </div>
+          {!inputValidity && (
+            <p className="text-danger mt-1">{t("todo.inputErorr")}</p>
+          )}
           {/* list */}
           <div className="list-group mt-4">
             {/* if there are any task appear list */}
