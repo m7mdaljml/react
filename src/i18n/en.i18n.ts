@@ -4,5 +4,6 @@ export default {
     add: "Add",
     noTasks: "No Tasks yet, start by adding a new task",
     inputErorr: "Please enter a task",
+    taskExistsError: "Task already exists and still undone",
   },
 };

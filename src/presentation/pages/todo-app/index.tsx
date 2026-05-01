@@ -9,20 +9,49 @@ const TODO = () => {
     done: false,
     date: new Date().toISOString(),
   });
+
   const [tasks, setTasks] = useState<TTask[]>(() => {
     const stored = localStorage.getItem("tasks");
     return stored ? JSON.parse(stored) : [];
   });
+
   const { t } = useTranslation();
+
   const [inputValidity, setInputValidity] = useState<boolean>(true);
+  const [taskValidity, settaskValidity] = useState<boolean>(true);
+
   const handleAddTask = () => {
-    if (newTask.text.trim() !== "") {
-      setTasks([newTask, ...tasks]);
-      setNewTask({ text: "", done: false, date: new Date().toISOString() });
-      setInputValidity(true);
-    } else {
+    const trimmedText = newTask.text.trim();
+
+    setInputValidity(true);
+    settaskValidity(true);
+
+    if (!trimmedText) {
       setInputValidity(false);
+      return;
     }
+
+    const taskExists = tasks.some(
+      (t) => t.text == trimmedText && t.done == false,
+    );
+    if (taskExists) {
+      settaskValidity(false);
+      return;
+    }
+
+    setTasks([
+      {
+        ...newTask,
+        text: trimmedText,
+      },
+      ...tasks,
+    ]);
+
+    setNewTask({
+      text: "",
+      done: false,
+      date: new Date().toISOString(),
+    });
   };
 
   useEffect(() => {
@@ -46,7 +75,7 @@ const TODO = () => {
                 })
               }
               type="text"
-              className={`form-control ${!inputValidity ? "border border-danger" : ""}`}
+              className={`form-control ${!inputValidity || !taskValidity ? "border border-danger" : ""}`}
               placeholder={t("todo.addNewTask")}
             />
             <button
@@ -58,6 +87,9 @@ const TODO = () => {
           </div>
           {!inputValidity && (
             <p className="text-danger mt-1">{t("todo.inputErorr")}</p>
+          )}
+          {!taskValidity && (
+            <p className="text-danger mt-1">{t("todo.taskExistsError")}</p>
           )}
           {/* list */}
           <div className="list-group mt-4">
