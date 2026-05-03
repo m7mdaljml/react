@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { routes } from "../../../sitemap";
 import { useEffect, useState } from "react";
 import i18n from "../../../i18n/index.i18n";
@@ -39,16 +39,21 @@ const Navbar = () => {
     setLang((lang) => (lang == "en" ? "ar" : "en"));
   };
 
+  const location = useLocation();
+
   return (
     <nav className="navbar navbar-expand-lg bg-primary-subtle">
       <div className="container-fluid">
         <span className="navbar-brand">React Projects</span>
 
         <div className="collapse navbar-collapse d-flex justify-content-between align-items-center">
-          <ul className="navbar-nav ">
+          <ul className="navbar-nav">
             {navRoutes.map((route, index) => (
               <li key={index} className="nav-item">
-                <Link className="nav-link" to={route.path || "/"}>
+                <Link
+                  className={`nav-link ${route.path && location.pathname == route.path ? "active fw-bold" : ""}`}
+                  to={route.path || "/"}
+                >
                   {route.handle?.label[lang]}
                 </Link>
               </li>

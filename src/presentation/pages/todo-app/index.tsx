@@ -19,6 +19,7 @@ const TODO = () => {
 
   const [inputValidity, setInputValidity] = useState<boolean>(true);
   const [taskValidity, settaskValidity] = useState<boolean>(true);
+  const [sortAsc, setSortAsc] = useState(true);
 
   const handleAddTask = () => {
     const trimmedText = newTask.text.trim();
@@ -80,10 +81,19 @@ const TODO = () => {
             />
             <button
               className="btn btn-primary d-flex gap-2 align-items-center"
+              disabled={!newTask.text.trim()}
               onClick={handleAddTask}
             >
               <FaPlus /> {t("todo.add")}
             </button>
+            {tasks.length > 1 && (
+              <button
+                className="btn btn-secondary d-flex gap-2 align-items-center"
+                onClick={() => setSortAsc((prev) => !prev)}
+              >
+                {sortAsc ? t("todo.oldToNew") : t("todo.newToOld")}
+              </button>
+            )}
           </div>
           {!inputValidity && (
             <p className="text-danger mt-1">{t("todo.inputErorr")}</p>
@@ -95,51 +105,57 @@ const TODO = () => {
           <div className="list-group mt-4">
             {/* if there are any task appear list */}
             {tasks.length ? (
-              tasks.map((task, index) => (
-                <div
-                  key={index}
-                  className="list-group-item d-flex justify-content-between align-items-center"
-                >
-                  <span
-                    className={
-                      task.done
-                        ? "text-decoration-line-through  text-success"
-                        : ""
-                    }
+              [...tasks]
+                .sort((a, b) =>
+                  sortAsc
+                    ? new Date(a.date).getTime() - new Date(b.date).getTime()
+                    : new Date(b.date).getTime() - new Date(a.date).getTime(),
+                )
+                .map((task, index) => (
+                  <div
+                    key={index}
+                    className="list-group-item d-flex justify-content-between align-items-center"
                   >
-                    {task.text} -
-                    <small className="text-muted m-1">
-                      {new Date(task.date).toLocaleString()}
-                    </small>
-                  </span>
-                  <div className="d-flex gap-2">
-                    {/* if the task is not done appear this button to mark it as done */}
-                    {!task.done ? (
-                      <button
-                        className="btn btn-outline-success border-0 d-flex align-items-center"
-                        onClick={() =>
-                          setTasks(
-                            tasks.map((t, i) =>
-                              i === index ? { ...t, done: !t.done } : t,
-                            ),
-                          )
-                        }
-                      >
-                        <FaCheck />
-                      </button>
-                    ) : // if the task is done dont appear any button
-                    null}
-                    <button
-                      className="btn btn-outline-danger border-0 d-flex align-items-center"
-                      onClick={() =>
-                        setTasks(tasks.filter((_item, i) => i !== index))
+                    <span
+                      className={
+                        task.done
+                          ? "text-decoration-line-through  text-success"
+                          : ""
                       }
                     >
-                      <FaTrash />
-                    </button>
+                      {task.text} -
+                      <small className="text-muted m-1">
+                        {new Date(task.date).toLocaleString()}
+                      </small>
+                    </span>
+                    <div className="d-flex gap-2">
+                      {/* if the task is not done appear this button to mark it as done */}
+                      {!task.done ? (
+                        <button
+                          className="btn btn-outline-success border-0 d-flex align-items-center"
+                          onClick={() =>
+                            setTasks(
+                              tasks.map((t, i) =>
+                                i === index ? { ...t, done: !t.done } : t,
+                              ),
+                            )
+                          }
+                        >
+                          <FaCheck />
+                        </button>
+                      ) : // if the task is done dont appear any button
+                      null}
+                      <button
+                        className="btn btn-outline-danger border-0 d-flex align-items-center"
+                        onClick={() =>
+                          setTasks(tasks.filter((_item, i) => i !== index))
+                        }
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))
+                ))
             ) : (
               // if there is no task appear this message
               <span className="text-muted mx-auto">{t("todo.noTasks")}</span>
