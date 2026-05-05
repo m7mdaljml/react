@@ -15,3 +15,10 @@ export type TTask = {
   date: string;
   done: boolean;
 };
+
+export type TTodoFilter = {
+  sort: string;
+  taskText: string;
+  done: string;
+  taskDate: string;
+};

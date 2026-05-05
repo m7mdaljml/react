@@ -21,8 +21,12 @@ const TODO = () => {
 
   const [inputValidity, setInputValidity] = useState<boolean>(true);
   const [taskValidity, setTaskValidity] = useState<boolean>(true);
-  const [sortAsc, setSortAsc] = useState(true);
-
+  const [filter, setFilter] = useState({
+    sort: "asc",
+    done: "all",
+    taskText: "",
+    taskDate: "",
+  });
   const handleAddTask = () => {
     const trimmedText = newTask.text.trim();
 
@@ -61,13 +65,36 @@ const TODO = () => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
+  const filteredTasks = [...tasks]
+    .filter((task) => {
+      if (filter.done == "done") return task.done;
+      if (filter.done == "notDone") return !task.done;
+      return true;
+    })
+    .filter((task) => {
+      if (!filter.taskText) return true;
+      return task.text.toLowerCase().includes(filter.taskText.toLowerCase());
+    })
+    .filter((task) => {
+      if (!filter.taskDate) return true;
+
+      const taskDate = new Date(task.date).toDateString();
+      const filterDate = new Date(filter.taskDate).toDateString();
+
+      return taskDate == filterDate;
+    })
+    .sort((a, b) => {
+      if (filter.sort == "asc")
+        return new Date(a.date).getTime() - new Date(b.date).getTime();
+      else return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
   return (
     <>
       <h1 className="d-flex justify-content-center">TODO List</h1>
-      {tasks.length > 1 && (
+      {!!tasks.length && (
         <div className="card w-50 mx-auto mt-4">
           <div className="card-body">
-            <Filter sortAsc={sortAsc} setSortAsc={setSortAsc} />
+            <Filter filter={filter} setFilter={setFilter} />
           </div>
         </div>
       )}
@@ -108,58 +135,52 @@ const TODO = () => {
           {/* list */}
           <div className="list-group mt-4">
             {/* if there are any task appear list */}
-            {tasks.length ? (
-              [...tasks]
-                .sort((a, b) =>
-                  sortAsc
-                    ? new Date(a.date).getTime() - new Date(b.date).getTime()
-                    : new Date(b.date).getTime() - new Date(a.date).getTime(),
-                )
-                .map((task, index) => (
-                  <div
-                    key={index}
-                    className="list-group-item d-flex justify-content-between align-items-center"
+            {filteredTasks.length ? (
+              [...filteredTasks].map((task, index) => (
+                <div
+                  key={index}
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  <span
+                    className={
+                      task.done
+                        ? "text-decoration-line-through  text-success"
+                        : ""
+                    }
                   >
-                    <span
-                      className={
-                        task.done
-                          ? "text-decoration-line-through  text-success"
-                          : ""
-                      }
-                    >
-                      {task.text} -
-                      <small className="text-muted m-1">
-                        {new Date(task.date).toLocaleString()}
-                      </small>
-                    </span>
-                    <div className="d-flex gap-2">
-                      {/* if the task is not done appear this button to mark it as done */}
-                      {!task.done ? (
-                        <button
-                          className="btn btn-outline-success border-0 d-flex align-items-center"
-                          onClick={() =>
-                            setTasks(
-                              tasks.map((t, i) =>
-                                i === index ? { ...t, done: !t.done } : t,
-                              ),
-                            )
-                          }
-                        >
-                          <FaCheck />
-                        </button>
-                      ) : // if the task is done don't appear any button
-                      null}
+                    {task.text} -
+                    <small className="text-muted m-1">
+                      {new Date(task.date).toLocaleString()}
+                    </small>
+                  </span>
+                  <div className="d-flex gap-2">
+                    {/* if the task is not done appear this button to mark it as done */}
+                    {!task.done ? (
                       <button
-                        className="btn btn-outline-danger border-0 d-flex align-items-center"
+                        className="btn btn-outline-success border-0 d-flex align-items-center"
                         onClick={() =>
-                          setTasks(tasks.filter((_item, i) => i !== index))
+                          setTasks(
+                            tasks.map((t, i) =>
+                              i === index ? { ...t, done: !t.done } : t,
+                            ),
+                          )
                         }
                       >
-                        <FaTrash />
+                        <FaCheck />
                       </button>
-                    </div>
+                    ) : // if the task is done don't appear any button
+                    null}
+                    <button
+                      className="btn btn-outline-danger border-0 d-flex align-items-center"
+                      onClick={() =>
+                        setTasks(tasks.filter((_item, i) => i !== index))
+                      }
+                    >
+                      <FaTrash />
+                    </button>
                   </div>
-                ))
+                </div>
+              ))
             ) : (
               // if there is no task appear this message
               <span className="text-muted mx-auto">{t("todo.noTasks")}</span>
