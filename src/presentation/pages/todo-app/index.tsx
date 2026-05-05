@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FaPlus, FaTrash, FaCheck } from "react-icons/fa";
 import type { TTask } from "../../../domain/meta/i-types";
+// components
+import Filter from "./filter";
 
 const TODO = () => {
   const [newTask, setNewTask] = useState({
@@ -18,14 +20,14 @@ const TODO = () => {
   const { t } = useTranslation();
 
   const [inputValidity, setInputValidity] = useState<boolean>(true);
-  const [taskValidity, settaskValidity] = useState<boolean>(true);
+  const [taskValidity, setTaskValidity] = useState<boolean>(true);
   const [sortAsc, setSortAsc] = useState(true);
 
   const handleAddTask = () => {
     const trimmedText = newTask.text.trim();
 
     setInputValidity(true);
-    settaskValidity(true);
+    setTaskValidity(true);
 
     if (!trimmedText) {
       setInputValidity(false);
@@ -36,7 +38,7 @@ const TODO = () => {
       (t) => t.text == trimmedText && t.done == false,
     );
     if (taskExists) {
-      settaskValidity(false);
+      setTaskValidity(false);
       return;
     }
 
@@ -62,10 +64,18 @@ const TODO = () => {
   return (
     <>
       <h1 className="d-flex justify-content-center">TODO List</h1>
+      {tasks.length > 1 && (
+        <div className="card w-50 mx-auto mt-4">
+          <div className="card-body">
+            <Filter sortAsc={sortAsc} setSortAsc={setSortAsc} />
+          </div>
+        </div>
+      )}
+
       <div className="card mt-4 w-50 mx-auto">
         <div className="card-body">
-          {/* Input Area */}
-          <div className="d-flex gap-2 ">
+          {/* Header Area */}
+          <div className="d-flex justify content between">
             <input
               value={newTask.text}
               onChange={(e) =>
@@ -76,27 +86,21 @@ const TODO = () => {
                 })
               }
               type="text"
-              className={`form-control ${!inputValidity || !taskValidity ? "border border-danger" : ""}`}
+              className={`form-control w-50 mr-2 ${!inputValidity || !taskValidity ? "border border-danger" : ""}`}
               placeholder={t("todo.addNewTask")}
             />
-            <button
-              className="btn btn-primary d-flex gap-2 align-items-center"
-              disabled={!newTask.text.trim()}
-              onClick={handleAddTask}
-            >
-              <FaPlus /> {t("todo.add")}
-            </button>
-            {tasks.length > 1 && (
+            <div className="d-flex w-50 justify-content-end gap-2">
               <button
-                className="btn btn-secondary d-flex gap-2 align-items-center"
-                onClick={() => setSortAsc((prev) => !prev)}
+                className="btn btn-primary d-flex gap-2 align-items-center"
+                disabled={!newTask.text.trim()}
+                onClick={handleAddTask}
               >
-                {sortAsc ? t("todo.oldToNew") : t("todo.newToOld")}
+                <FaPlus /> {t("todo.add")}
               </button>
-            )}
+            </div>
           </div>
           {!inputValidity && (
-            <p className="text-danger mt-1">{t("todo.inputErorr")}</p>
+            <p className="text-danger mt-1">{t("todo.inputError")}</p>
           )}
           {!taskValidity && (
             <p className="text-danger mt-1">{t("todo.taskExistsError")}</p>
@@ -143,7 +147,7 @@ const TODO = () => {
                         >
                           <FaCheck />
                         </button>
-                      ) : // if the task is done dont appear any button
+                      ) : // if the task is done don't appear any button
                       null}
                       <button
                         className="btn btn-outline-danger border-0 d-flex align-items-center"
