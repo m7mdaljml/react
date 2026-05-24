@@ -1,4 +1,5 @@
 export default {
+  changingLanguage: "جارٍ تغيير اللغة…",
   todo: {
     addNewTask: "أضف مهمة جديدة",
     add: "أضف",
