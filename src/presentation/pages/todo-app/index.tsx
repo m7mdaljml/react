@@ -183,7 +183,9 @@ const TODO = () => {
               ))
             ) : (
               // if there is no task appear this message
-              <span className="text-muted mx-auto">{t("todo.noTasks")}</span>
+              <span className="text-muted mx-auto">
+                {tasks.length ? t("todo.noTasksWithFilter") : t("todo.noTasks")}
+              </span>
             )}
           </div>
         </div>
