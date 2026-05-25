@@ -3,6 +3,7 @@ import { routes } from "../../../sitemap";
 import { useEffect, useState } from "react";
 import i18n from "../../../i18n/index.i18n";
 import type { TAppRoute } from "../../../domain/meta/i-types";
+import { FaGlobe } from "react-icons/fa";
 
 const extractRoutes = (routeList: TAppRoute[], parentPath = "") => {
   let result = [] as TAppRoute[];
@@ -60,7 +61,11 @@ const Navbar = () => {
             ))}
           </ul>
 
-          <button onClick={toggleLang} className="btn btn-outline-primary ms-2">
+          <button
+            onClick={toggleLang}
+            className="btn btn-outline-primary ms-2 d-flex align-items-center gap-2"
+          >
+            <FaGlobe />
             {lang === "ar" ? "EN" : "AR"}
           </button>
         </div>

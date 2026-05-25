@@ -1,0 +1,23 @@
+.weather-bg-clear {
+  background: linear-gradient(135deg, #f093fb, #f5576c, #fda085);
+}
+
+.weather-bg-clouds {
+  background: linear-gradient(135deg, #89a0c4, #6a85b6, #bac8e0);
+}
+
+.weather-bg-rain {
+  background: linear-gradient(135deg, #2c3e50, #4ca1af, #2c3e50);
+}
+
+.weather-bg-storm {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+}
+
+.weather-bg-snow {
+  background: linear-gradient(135deg, #e6e9f0, #eef1f5, #c9d6ff);
+}
+
+.weather-bg-fog {
+  background: linear-gradient(135deg, #d7d2cc, #304352);
+}

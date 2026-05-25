@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 
 import MainLayout from "../presentation/pages/index";
 import TodoApp from "../presentation/pages/todo-app";
+import WeatherApp from "../presentation/pages/weather";
 
 export const routes: RouteObject[] = [
   {
@@ -17,6 +18,11 @@ export const routes: RouteObject[] = [
         path: "todo",
         element: <TodoApp />,
         handle: { label: { en: "TODO List", ar: "قائمة المهام" } },
+      },
+      {
+        path: "weather",
+        element: <WeatherApp />,
+        handle: { label: { en: "Weather", ar: "الطقس" } },
       },
       {
         path: "*",
