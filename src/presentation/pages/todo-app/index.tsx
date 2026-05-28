@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FaPlus, FaTrash, FaCheck } from "react-icons/fa";
 import type { TTask } from "../../../domain/meta/i-types";
 // components
-import Filter from "./filter";
+import Filter from "../../components/todo-app/filter";
 
 const TODO = () => {
   const [newTask, setNewTask] = useState({

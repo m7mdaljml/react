@@ -134,8 +134,6 @@ const Filter = ({ filter, setFilter }: props) => {
           {t("todo.applyFilter")}
         </button>
       </div>
-
-      {/* TODO: implement filter by done, task taskText, and task date */}
     </>
   );
 };
