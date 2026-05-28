@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { routes } from "./sitemap";
@@ -6,10 +5,11 @@ import "./assets/style/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./i18n/index.i18n";
+import { ConfigProvider } from "./context/provider";
 const router = createBrowserRouter(routes);
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+  <ConfigProvider>
     <RouterProvider router={router} />
-  </StrictMode>,
+  </ConfigProvider>,
 );

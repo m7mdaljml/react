@@ -1,3 +1,7 @@
+export type TAppConfig = {
+  baseUrl: string;
+};
+
 export type THashMap = {
   en: string;
   ar: string;
