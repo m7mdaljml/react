@@ -43,7 +43,7 @@ const Presentation = () => {
         </div>
       )}
 
-      <div style={{ padding: "20px" }}>
+      <div>
         <Outlet />
       </div>
     </div>

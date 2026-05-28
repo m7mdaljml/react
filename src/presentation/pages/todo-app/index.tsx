@@ -90,7 +90,7 @@ const TODO = () => {
     });
   return (
     <>
-      <h1 className="d-flex justify-content-center">TODO List</h1>
+      <h1 className="d-flex justify-content-center py-4">TODO List</h1>
       {!!tasks.length && (
         <div className="card w-50 mx-auto mt-4">
           <div className="card-body">
