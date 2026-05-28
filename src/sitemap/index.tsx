@@ -1,10 +1,13 @@
 import type { RouteObject } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
-import MainLayout from "../presentation/pages/index";
+import MainLayout from "../presentation/pages";
 import TodoApp from "../presentation/pages/todo-app";
 import WeatherApp from "../presentation/pages/weather";
-import ExpenseTracker from "../presentation/pages/expense-tracker";
+//Expense Tracker Paths
+import ExpenseTrackerLayout from "../presentation/pages/expense-tracker";
+import ExpenseDashboard from "../presentation/pages/expense-tracker/content/dashboard";
+import ExpenseTransactions from "../presentation/pages/expense-tracker/content/transactions";
 
 export const routes: RouteObject[] = [
   {
@@ -27,9 +30,37 @@ export const routes: RouteObject[] = [
       },
       {
         path: "expense-tracker",
-        element: <ExpenseTracker />,
-        handle: { label: { en: "Expense Tracker", ar: "تتبع المصروفات" } },
+        element: <ExpenseTrackerLayout />,
+        handle: {
+          label: {
+            en: "Expense Tracker",
+            ar: "تتبع المصروفات",
+          },
+        },
+        children: [
+          {
+            path: "dashboard",
+            element: <ExpenseDashboard />,
+            handle: {
+              label: {
+                en: "Dashboard",
+                ar: "لوحة التحكم",
+              },
+            },
+          },
+          {
+            path: "transactions",
+            element: <ExpenseTransactions />,
+            handle: {
+              label: {
+                en: "Transactions",
+                ar: "المعاملات",
+              },
+            },
+          },
+        ],
       },
+
       {
         path: "*",
         element: <Navigate to="/todo" replace />,

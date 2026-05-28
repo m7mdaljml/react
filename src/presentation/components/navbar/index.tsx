@@ -2,27 +2,30 @@ import { Link, useLocation } from "react-router-dom";
 import { routes } from "../../../sitemap";
 import { useEffect, useState } from "react";
 import i18n from "../../../i18n/index.i18n";
-import type { TAppRoute } from "../../../domain/meta/i-types";
 import { FaGlobe } from "react-icons/fa";
 
-const extractRoutes = (routeList: TAppRoute[], parentPath = "") => {
-  let result = [] as TAppRoute[];
-  routeList.forEach((route) => {
-    const fullPath = route.path ? `${parentPath}${route.path}` : parentPath;
-    if (route.handle?.label) {
-      result.push({
-        ...route,
-        path: route.index ? parentPath || "/" : fullPath,
-      });
-    }
-    if (route.children)
-      result = result.concat(extractRoutes(route.children, fullPath));
-  });
-  return result;
+const extractRoutes = () => {
+  const appRoutes = routes?.[0]?.children || [];
+
+  return appRoutes
+    .filter((route) => route.handle?.label && route.path !== "*")
+    .map((route) => {
+      const basePath = route.path || "";
+      let fullPath = `/${basePath}`;
+      if (route.children?.length) {
+        const firstChild = route.children.find((c) => c.path && !c.index);
+        if (firstChild?.path) fullPath = `/${basePath}`;
+      }
+      return {
+        label: route.handle.label,
+        path: fullPath,
+        children: route.children,
+      };
+    });
 };
 
 const Navbar = () => {
-  const navRoutes = extractRoutes(routes);
+  const navRoutes = extractRoutes();
 
   const [lang, setLang] = useState<"en" | "ar">(() => {
     const defaultLang = localStorage.getItem("lang");
@@ -44,31 +47,39 @@ const Navbar = () => {
 
   return (
     <nav className="navbar navbar-expand-lg bg-primary-subtle">
-      <div className="container-fluid">
-        <span className="navbar-brand">React Projects</span>
+      <div className="d-flex justify-content-between container-fluid">
+        <div className="d-flex justify-content-between align-items-center">
+          <span className="navbar-brand">React Projects</span>
 
-        <div className="collapse navbar-collapse d-flex justify-content-between align-items-center">
-          <ul className="navbar-nav">
-            {navRoutes.map((route, index) => (
-              <li key={index} className="nav-item">
-                <Link
-                  className={`nav-link ${route.path && location.pathname == route.path ? "active fw-bold" : ""}`}
-                  to={route.path || "/"}
-                >
-                  {route.handle?.label[lang]}
-                </Link>
-              </li>
-            ))}
+          <ul className="navbar-nav d-flex gap-3">
+            {navRoutes.map((route, i) => {
+              const isActive = location.pathname.startsWith(route.path);
+
+              return (
+                <li key={i} className="nav-item">
+                  <Link
+                    to={
+                      route.children?.length
+                        ? `${route.path}/${route.children?.[0]?.path}`
+                        : route.path
+                    }
+                    className={`nav-link ${isActive ? "active fw-bold" : ""}`}
+                  >
+                    {route.label?.[lang]}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
-
-          <button
-            onClick={toggleLang}
-            className="btn btn-outline-primary ms-2 d-flex align-items-center gap-2"
-          >
-            <FaGlobe />
-            {lang === "ar" ? "EN" : "AR"}
-          </button>
         </div>
+
+        <button
+          onClick={toggleLang}
+          className="btn btn-outline-primary ms-2 d-flex align-items-center gap-2"
+        >
+          <FaGlobe />
+          {lang === "ar" ? "EN" : "AR"}
+        </button>
       </div>
     </nav>
   );
