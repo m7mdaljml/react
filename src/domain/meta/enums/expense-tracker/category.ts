@@ -3,5 +3,8 @@ export enum TransactionCategoryEnum {
   Transportation,
   Housing,
   Utilities,
-  Other,
+  Salaries,
+  Investments,
+  Shopping,
+  Entertainment,
 }

@@ -74,7 +74,10 @@ export default {
       [TransactionCategoryEnum.Transportation]: "نقل",
       [TransactionCategoryEnum.Housing]: "سكن",
       [TransactionCategoryEnum.Utilities]: "فواتير",
-      [TransactionCategoryEnum.Other]: "أخرى",
+      [TransactionCategoryEnum.Salaries]: "رواتب",
+      [TransactionCategoryEnum.Investments]: "استثمارات",
+      [TransactionCategoryEnum.Shopping]: "تسوق",
+      [TransactionCategoryEnum.Entertainment]: "ترفيه",
     },
   },
 };

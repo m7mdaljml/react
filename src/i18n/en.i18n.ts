@@ -72,7 +72,10 @@ export default {
       [TransactionCategoryEnum.Transportation]: "Transportation",
       [TransactionCategoryEnum.Housing]: "Housing",
       [TransactionCategoryEnum.Utilities]: "Utilities",
-      [TransactionCategoryEnum.Other]: "Other",
+      [TransactionCategoryEnum.Salaries]: "Salaries",
+      [TransactionCategoryEnum.Investments]: "Investments",
+      [TransactionCategoryEnum.Shopping]: "Shopping",
+      [TransactionCategoryEnum.Entertainment]: "Entertainment",
     },
   },
 };

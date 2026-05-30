@@ -132,9 +132,24 @@ const FilterModal = ({ filters, setFilters, closeModal }) => {
                       `enums.TransactionCategoryEnum.${TransactionCategoryEnum.Utilities}`,
                     )}
                   </option>
-                  <option value={TransactionCategoryEnum.Other}>
+                  <option value={TransactionCategoryEnum.Salaries}>
                     {t(
-                      `enums.TransactionCategoryEnum.${TransactionCategoryEnum.Other}`,
+                      `enums.TransactionCategoryEnum.${TransactionCategoryEnum.Salaries}`,
+                    )}
+                  </option>
+                  <option value={TransactionCategoryEnum.Investments}>
+                    {t(
+                      `enums.TransactionCategoryEnum.${TransactionCategoryEnum.Investments}`,
+                    )}
+                  </option>
+                  <option value={TransactionCategoryEnum.Shopping}>
+                    {t(
+                      `enums.TransactionCategoryEnum.${TransactionCategoryEnum.Shopping}`,
+                    )}
+                  </option>
+                  <option value={TransactionCategoryEnum.Entertainment}>
+                    {t(
+                      `enums.TransactionCategoryEnum.${TransactionCategoryEnum.Entertainment}`,
                     )}
                   </option>
                 </select>
