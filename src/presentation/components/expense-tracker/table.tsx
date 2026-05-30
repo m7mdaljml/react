@@ -41,7 +41,7 @@ const Table = ({
               </td>
               <td
                 className={`fw-bold ${
-                  transaction.type === TransactionTypeEnum.Expense
+                  transaction.type == TransactionTypeEnum.Expense
                     ? " text-danger"
                     : " text-success"
                 }`}
@@ -50,12 +50,12 @@ const Table = ({
               </td>
               <td
                 className={`fw-bold ${
-                  transaction.type === TransactionTypeEnum.Expense
+                  transaction.type == TransactionTypeEnum.Expense
                     ? " text-danger"
                     : " text-success"
                 }`}
               >
-                {transaction.type === TransactionTypeEnum.Expense ? "-" : "+"}
+                {transaction.type == TransactionTypeEnum.Expense ? "-" : "+"}
                 {(t("expenseTracker.amountWithCurrency") as any)(
                   transaction.amount,
                   config.currency[i18n.language],
