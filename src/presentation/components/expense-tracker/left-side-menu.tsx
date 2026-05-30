@@ -14,7 +14,7 @@ const LeftSideMenu = () => {
 
   return (
     <div
-      className="d-flex flex-column flex-shrink-0 p-3 vh-100 border-end bg-primary-subtle"
+      className="d-flex flex-column flex-shrink-0 p-3 vh-100 border-end bg-light"
       style={{ width: "280px" }}
     >
       <ul className="nav flex-column gap-1">

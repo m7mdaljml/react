@@ -1,3 +1,6 @@
+import { TransactionCategoryEnum } from "../domain/meta/enums/expense-tracker/category";
+import { TransactionTypeEnum } from "../domain/meta/enums/expense-tracker/type";
+
 export default {
   changingLanguage: "جارٍ تغيير اللغة…",
   todo: {
@@ -32,8 +35,46 @@ export default {
     visibility: "الرؤية",
     sunrise: "الشروق",
     sunset: "الغروب",
-    cityNotFound: "المدينة غير موجودة. يرجى التحقق من الاسم والمحاولة مرة أخرى.",
+    cityNotFound:
+      "المدينة غير موجودة. يرجى التحقق من الاسم والمحاولة مرة أخرى.",
     fetchError: "فشل جلب بيانات الطقس. يرجى المحاولة لاحقاً.",
     emptyState: "أدخل اسم مدينة أعلاه لمشاهدة حالة الطقس الحالية",
+  },
+  expenseTracker: {
+    createNewTransaction: "إنشاء معاملة جديدة",
+    filter: "تصفية",
+    create: "إنشاء",
+    close: "إغلاق",
+    apply: "تطبيق",
+    reset: "إعادة تعيين",
+    title: "العنوان",
+    category: "الفئة",
+    type: "النوع",
+    amount: "المبلغ",
+    date: "التاريخ",
+    actions: "الإجراءات",
+    AllFieldsAreRequired: "جميع الحقول مطلوبة",
+    save: "حفظ",
+    editTransaction: "تعديل المعاملة",
+    noTransactions: "لا توجد معاملات بعد!",
+    noTransactionsSub: "ابدأ بإضافة معاملة جديدة",
+    noTransactionsWithFilter: "لا توجد بيانات!",
+    noTransactionsWithFilterSub: "قم بتعديل معايير التصفية وحاول مرة أخرى",
+    amountWithCurrency: (amount: number, currency: string) =>
+      `${amount} ${currency}`,
+    amountInCurrency: (currency: string) => `المبلغ ب${currency}`,
+  },
+  enums: {
+    TransactionTypeEnum: {
+      [TransactionTypeEnum.Income]: "دخل",
+      [TransactionTypeEnum.Expense]: "مصروف",
+    },
+    TransactionCategoryEnum: {
+      [TransactionCategoryEnum.Food]: "طعام",
+      [TransactionCategoryEnum.Transportation]: "نقل",
+      [TransactionCategoryEnum.Housing]: "سكن",
+      [TransactionCategoryEnum.Utilities]: "فواتير",
+      [TransactionCategoryEnum.Other]: "أخرى",
+    },
   },
 };

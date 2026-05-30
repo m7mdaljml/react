@@ -1,3 +1,6 @@
+import { TransactionCategoryEnum } from "../domain/meta/enums/expense-tracker/category";
+import { TransactionTypeEnum } from "../domain/meta/enums/expense-tracker/type";
+
 export default {
   changingLanguage: "Changing language…",
   todo: {
@@ -34,5 +37,42 @@ export default {
     cityNotFound: "City not found. Please check the name and try again.",
     fetchError: "Failed to fetch weather data. Please try again later.",
     emptyState: "Enter a city name above to see the current weather",
+  },
+  expenseTracker: {
+    createNewTransaction: "Create New Transaction",
+    filter: "Filter",
+    create: "Create",
+    close: "Close",
+    apply: "Apply",
+    reset: "Reset",
+    title: "Title",
+    category: "Category",
+    type: "Type",
+    amount: "Amount",
+    date: "Date",
+    actions: "Actions",
+    AllFieldsAreRequired: "All fields are required",
+    save: "Save",
+    editTransaction: "Edit Transaction",
+    noTransactions: "No Transactions yet!",
+    noTransactionsSub: "Start by adding a new transaction",
+    noTransactionsWithFilter: "No Data Found!",
+    noTransactionsWithFilterSub: "Update your filter criteria and try again",
+    amountWithCurrency: (amount: number, currency: string) =>
+      `${amount} ${currency}`,
+    amountInCurrency: (currency: string) => `Amount in (${currency})`,
+  },
+  enums: {
+    TransactionTypeEnum: {
+      [TransactionTypeEnum.Income]: "Income",
+      [TransactionTypeEnum.Expense]: "Expense",
+    },
+    TransactionCategoryEnum: {
+      [TransactionCategoryEnum.Food]: "Food",
+      [TransactionCategoryEnum.Transportation]: "Transportation",
+      [TransactionCategoryEnum.Housing]: "Housing",
+      [TransactionCategoryEnum.Utilities]: "Utilities",
+      [TransactionCategoryEnum.Other]: "Other",
+    },
   },
 };

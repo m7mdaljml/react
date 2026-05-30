@@ -1,7 +1,12 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
-})
+export default {
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://react-projects.freedev.app",
+        // target: "http://localhost/api", // Put it in the axios request to test in localhost
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
+};

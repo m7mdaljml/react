@@ -1,10 +1,11 @@
-export type TAppConfig = {
-  baseUrl: string;
-};
-
 export type THashMap = {
   en: string;
   ar: string;
+};
+
+export type TAppConfig = {
+  baseUrl: string;
+  currency: THashMap;
 };
 
 export type TAppRoute = {
