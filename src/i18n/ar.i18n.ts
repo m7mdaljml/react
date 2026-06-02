@@ -63,6 +63,8 @@ export default {
     amountWithCurrency: (amount: number, currency: string) =>
       `${amount} ${currency}`,
     amountInCurrency: (currency: string) => `المبلغ ب${currency}`,
+    totalIncome: "إجمالي الدخل",
+    totalExpense: "إجمالي المصروفات",
   },
   enums: {
     TransactionTypeEnum: {
