@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://react-projects.freedev.app",
+        target: "", // Should add here the production url
         changeOrigin: true,
         secure: true,
       },
