@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaFilter } from "react-icons/fa";
 import { Transaction } from "../../../../domain/def/transaction";
+import { useConfig } from "../../../../context/context";
 
 // Components
 import FilterModal from "../../../components/expense-tracker/filter-modal";
@@ -12,6 +13,8 @@ import NoData from "../../../components/common/no-data";
 import Loading from "../../../components/common/loading";
 
 const ExpenseTransactions = () => {
+  const config = useConfig();
+
   const { t } = useTranslation();
 
   const [transaction, setTransaction] = useState(new Transaction());
@@ -38,12 +41,12 @@ const ExpenseTransactions = () => {
     try {
       setUiState({ isBusy: true });
       if (isEdit) {
-        await axios.put("/api/edit-transaction.php", {
+        await axios.put(`${config.baseUrl}/edit-transaction.php`, {
           id,
           ...transaction,
         });
       } else {
-        await axios.post("/api/add-transaction.php", {
+        await axios.post(`${config.baseUrl}/add-transaction.php`, {
           ...transaction,
         });
       }
@@ -60,7 +63,7 @@ const ExpenseTransactions = () => {
   const deleteTransaction = async (id: string) => {
     try {
       setUiState({ isBusy: true });
-      await axios.post("/api/delete-transaction.php", {
+      await axios.post(`${config.baseUrl}/delete-transaction.php`, {
         id,
       });
 
@@ -78,7 +81,7 @@ const ExpenseTransactions = () => {
       const cleanFilters = Object.fromEntries(
         Object.entries(filters).filter(([_, v]) => v !== "" && v != null),
       );
-      const res = await axios.get("/api/list-transactions.php", {
+      const res = await axios.get(`${config.baseUrl}/list-transactions.php`, {
         params: { ...cleanFilters },
       });
       setTransactions(res.data);
