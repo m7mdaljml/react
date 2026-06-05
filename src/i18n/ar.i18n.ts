@@ -73,6 +73,13 @@ export default {
     expense: "المصروف",
     noDateToDisplay: "لا يوجد بيانات لعرضها",
   },
+  tasksBoard: {
+    title: "لوحة المهام",
+    todo: "قائمة المهام",
+    inProgress: "قيد التنفيذ",
+    review: "قيد المراجعة",
+    done: "تم",
+  },
   enums: {
     TransactionTypeEnum: {
       [TransactionTypeEnum.Income]: "دخل",

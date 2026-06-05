@@ -71,6 +71,13 @@ export default {
     expense: "Expense",
     noDateToDisplay: "No Data To Display",
   },
+  tasksBoard: {
+    title: "Tasks Board",
+    todo: "TODO",
+    inProgress: "In Progress",
+    review: "Review",
+    done: "Done",
+  },
   enums: {
     TransactionTypeEnum: {
       [TransactionTypeEnum.Income]: "Income",

@@ -8,6 +8,7 @@ import WeatherApp from "../presentation/pages/weather";
 import ExpenseTrackerLayout from "../presentation/pages/expense-tracker";
 import ExpenseDashboard from "../presentation/pages/expense-tracker/content/dashboard";
 import ExpenseTransactions from "../presentation/pages/expense-tracker/content/transactions";
+import TasksBoard from "../presentation/pages/tasks-board";
 
 export const routes: RouteObject[] = [
   {
@@ -59,6 +60,11 @@ export const routes: RouteObject[] = [
             },
           },
         ],
+      },
+      {
+        path: "tasks-board",
+        element: <TasksBoard />,
+        handle: { label: { en: "Tasks Board", ar: "لوحة المهام " } },
       },
 
       {
