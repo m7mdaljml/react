@@ -63,6 +63,12 @@ export default {
     amountInCurrency: (currency: string) => `Amount in (${currency})`,
     totalIncome: "Total Income",
     totalExpense: "Total Expense",
+    incomeByCategory: "Income by Category",
+    expenseByCategory: "Expense by Category",
+    totalOverview: "Total Overview",
+    balance: "Balance",
+    income: "Income",
+    expense: "Expense",
   },
   enums: {
     TransactionTypeEnum: {

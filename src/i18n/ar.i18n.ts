@@ -65,6 +65,12 @@ export default {
     amountInCurrency: (currency: string) => `المبلغ ب${currency}`,
     totalIncome: "إجمالي الدخل",
     totalExpense: "إجمالي المصروفات",
+    incomeByCategory: "الدخل حسب الفئة",
+    expenseByCategory: "المصروفات حسب الفئة",
+    totalOverview: "نظرة عامة",
+    balance: "الرصيد",
+    income: "الدخل",
+    expense: "المصروف",
   },
   enums: {
     TransactionTypeEnum: {
