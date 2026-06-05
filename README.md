@@ -6,6 +6,16 @@
 
 ---
 
+## 📚 Included Projects
+
+| Tab | Project            |
+| --- | ------------------ |
+| 1   | 📝 TODO List       |
+| 2   | 🌤️ Weather App     |
+| 3   | 💰 Expense Tracker |
+
+---
+
 <!-- First Tab : TODO List App -->
 
 ## 📝 First Tab: TODO List App
@@ -63,3 +73,50 @@ A real-time weather application built with React that fetches live data from the
 - Time conversion using timezone offset logic
 
 <!-- ./Second Tab : Weather App -->
+
+<!-- Third Tab : Expense Tracker -->
+
+## 💰 Third Tab: Expense Tracker
+
+A full-stack expense management application built with React, TypeScript, PHP, and MySQL. It allows users to manage their income and expenses while providing insightful dashboard analytics and filtering capabilities.
+
+---
+
+## 🚀 Features
+
+- ➕ Create new transactions
+- ✏️ Edit existing transactions
+- 🗑️ Delete transactions
+- 🔍 Filter transactions by multiple criteria
+- 💵 Track both Income and Expense records
+- 📊 Dashboard with financial overview
+- 📈 Monthly income vs expense chart
+- 🥧 Income distribution by category
+- 🥧 Expense distribution by category
+- ⚖️ Automatic balance calculation
+- 🌐 Multi-language support using i18n
+- 🎨 Responsive UI built with Bootstrap
+- ⚠️ Loading and empty state handling
+
+---
+
+## 🧠 Technical Highlights
+
+- Built with **React + TypeScript + Vite**
+- Backend powered by **PHP REST APIs**
+- Data stored in **MySQL**
+- Uses `axios` for API communication
+- CRUD operations for transaction management
+- Server-side filtering through query parameters
+- Dashboard statistics generated from aggregated database queries
+- Reusable modal and table components
+- Charts implemented using **ECharts**
+- Clean component-based architecture with React Hooks
+
+---
+
+## 🔙🔚 APIS Endpoints
+
+- You Will find the APIS Endpoints in the `BE` folder inside the expense-tracker folder.
+
+<!-- ./Third Tab : Expense Tracker -->
