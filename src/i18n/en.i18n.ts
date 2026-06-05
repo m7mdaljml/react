@@ -69,6 +69,7 @@ export default {
     balance: "Balance",
     income: "Income",
     expense: "Expense",
+    noDateToDisplay: "No Data To Display",
   },
   enums: {
     TransactionTypeEnum: {

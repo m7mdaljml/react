@@ -71,6 +71,7 @@ export default {
     balance: "الرصيد",
     income: "الدخل",
     expense: "المصروف",
+    noDateToDisplay: "لا يوجد بيانات لعرضها",
   },
   enums: {
     TransactionTypeEnum: {

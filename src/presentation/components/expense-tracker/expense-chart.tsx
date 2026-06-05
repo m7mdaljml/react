@@ -21,7 +21,8 @@ const ExpenseChart = (data: any) => {
       trigger: "item",
     },
     legend: {
-      bottom: "0%",
+      top: "0%",
+      left: "center",
     },
     series: [
       {

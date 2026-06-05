@@ -13,6 +13,7 @@ import Loading from "../../../components/common/loading";
 import ExpenseChart from "../../../components/expense-tracker/expense-chart";
 import IncomeChart from "../../../components/expense-tracker/income-chart";
 import OverviewChart from "../../../components/expense-tracker/overview-chart";
+import NoData from "../../../components/common/no-data";
 
 const ExpenseDashboard = () => {
   const config = useConfig();
@@ -142,22 +143,34 @@ const ExpenseDashboard = () => {
             </div>
           </div>
 
-          <div className="mt-2">
-            <OverviewChart data={monthOverview} />
-          </div>
+          {!monthOverview.length ? (
+            <NoData message={t("expenseTracker.noDateToDisplay")} />
+          ) : (
+            <div className="mt-2">
+              <OverviewChart data={monthOverview} />
+            </div>
+          )}
 
           <div className="row g-3 mt-2">
             <div className="col-6 d-flex flex-column gap-3">
               <div className="fw-bold fs-5">
                 {t("expenseTracker.incomeByCategory")}
               </div>
-              <IncomeChart data={incomeByCategory} />
+              {!incomeByCategory.length ? (
+                <NoData message={t("expenseTracker.noDateToDisplay")} />
+              ) : (
+                <IncomeChart data={incomeByCategory} />
+              )}
             </div>
             <div className="col-6 d-flex flex-column gap-3">
               <div className="fw-bold fs-5">
                 {t("expenseTracker.expenseByCategory")}
               </div>
-              <ExpenseChart data={expenseByCategory} />
+              {!expenseByCategory.length ? (
+                <NoData message={t("expenseTracker.noDateToDisplay")} />
+              ) : (
+                <ExpenseChart data={expenseByCategory} />
+              )}
             </div>
           </div>
         </div>
