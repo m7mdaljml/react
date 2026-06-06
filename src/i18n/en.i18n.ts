@@ -1,8 +1,11 @@
 import { TransactionCategoryEnum } from "../domain/meta/enums/expense-tracker/category";
 import { TransactionTypeEnum } from "../domain/meta/enums/expense-tracker/type";
+import { TaskPriorityEnum } from "../domain/meta/enums/tasks-board/priority";
+import { TaskStatusEnum } from "../domain/meta/enums/tasks-board/status";
 
 export default {
   changingLanguage: "Changing language…",
+  delete: "Delete",
   todo: {
     addNewTask: "Add New Task",
     add: "Add",
@@ -77,6 +80,20 @@ export default {
     inProgress: "In Progress",
     review: "Review",
     done: "Done",
+    noTasks: "No Tasks",
+    addNewTask: "Add New Task",
+    add: "Add",
+    taskAddedSuccessfully: "Task added successfully",
+    taskTitle: "Task Title",
+    taskDescription: "Task Description",
+    assignedTo: "Assigned To",
+    estimatedTime: "Estimated Time (in hours)",
+    priority: "Priority",
+    status: "Status",
+    estimatedTimeHours: (hours: number) => `${hours} hrs`,
+    moveToNextStep: "Move to Next Step",
+    taskMovedSuccessfully: "Task moved successfully",
+    taskDeletedSuccessfully: "Task deleted successfully",
   },
   enums: {
     TransactionTypeEnum: {
@@ -92,6 +109,17 @@ export default {
       [TransactionCategoryEnum.Investments]: "Investments",
       [TransactionCategoryEnum.Shopping]: "Shopping",
       [TransactionCategoryEnum.Entertainment]: "Entertainment",
+    },
+    TaskPriorityEnum: {
+      [TaskPriorityEnum.Low]: "Low",
+      [TaskPriorityEnum.Medium]: "Medium",
+      [TaskPriorityEnum.High]: "High",
+    },
+    TaskStatusEnum: {
+      [TaskStatusEnum.ToDo]: "To Do",
+      [TaskStatusEnum.InProgress]: "In Progress",
+      [TaskStatusEnum.Review]: "Review",
+      [TaskStatusEnum.Done]: "Done",
     },
   },
 };

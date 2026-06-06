@@ -1,8 +1,11 @@
 import { TransactionCategoryEnum } from "../domain/meta/enums/expense-tracker/category";
 import { TransactionTypeEnum } from "../domain/meta/enums/expense-tracker/type";
+import { TaskPriorityEnum } from "../domain/meta/enums/tasks-board/priority";
+import { TaskStatusEnum } from "../domain/meta/enums/tasks-board/status";
 
 export default {
   changingLanguage: "جارٍ تغيير اللغة…",
+  delete: "حذف",
   todo: {
     addNewTask: "أضف مهمة جديدة",
     add: "أضف",
@@ -79,6 +82,20 @@ export default {
     inProgress: "قيد التنفيذ",
     review: "قيد المراجعة",
     done: "تم",
+    noTasks: "لا توجد مهام",
+    addNewTask: "أضف مهمة جديدة",
+    add: "أضف",
+    taskAddedSuccessfully: "تم إضافة المهمة بنجاح",
+    taskTitle: "عنوان المهمة",
+    taskDescription: "وصف المهمة",
+    assignedTo: "المسؤول عنها",
+    estimatedTime: "الوقت المقدر (بالساعات)",
+    priority: "الأولوية",
+    status: "الحالة",
+    estimatedTimeHours: (hours: number) => `${hours} س`,
+    moveToNextStep: "الانتقال للمرحلة التالية",
+    taskMovedSuccessfully: "تم نقل المهمة بنجاح",
+    taskDeletedSuccessfully: "تم حذف المهمة بنجاح",
   },
   enums: {
     TransactionTypeEnum: {
@@ -94,6 +111,17 @@ export default {
       [TransactionCategoryEnum.Investments]: "استثمارات",
       [TransactionCategoryEnum.Shopping]: "تسوق",
       [TransactionCategoryEnum.Entertainment]: "ترفيه",
+    },
+    TaskPriorityEnum: {
+      [TaskPriorityEnum.Low]: "منخفض",
+      [TaskPriorityEnum.Medium]: "متوسط",
+      [TaskPriorityEnum.High]: "عالي",
+    },
+    TaskStatusEnum: {
+      [TaskStatusEnum.ToDo]: "قائمة المهام",
+      [TaskStatusEnum.InProgress]: "قيد التنفيذ",
+      [TaskStatusEnum.Review]: "قيد المراجعة",
+      [TaskStatusEnum.Done]: "تم",
     },
   },
 };

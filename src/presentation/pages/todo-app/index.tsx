@@ -161,7 +161,7 @@ const TODO = () => {
                         onClick={() =>
                           setTasks(
                             tasks.map((t, i) =>
-                              i === index ? { ...t, done: !t.done } : t,
+                              i == index ? { ...t, done: !t.done } : t,
                             ),
                           )
                         }
