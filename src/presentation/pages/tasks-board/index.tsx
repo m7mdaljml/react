@@ -20,6 +20,8 @@ const TasksBoard = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [dragOverColumn, setDragOverColumn] = useState<number | null>(null);
+
   const columns = [
     { id: 1, title: t("tasksBoard.todo"), color: "bg-info", list: todoList },
     {
@@ -71,6 +73,38 @@ const TasksBoard = () => {
     toast.success(t("tasksBoard.taskDeletedSuccessfully"));
   };
 
+  const handleDragOver = (e: any, columnId: number) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    setDragOverColumn(columnId);
+  };
+
+  const handleDragLeave = () => {
+    setDragOverColumn(null);
+  };
+
+  const handleDrop = (e: any, targetStage: number) => {
+    e.preventDefault();
+    setDragOverColumn(null);
+
+    const taskId = e.dataTransfer.getData("taskId");
+    const sourceStage = parseInt(e.dataTransfer.getData("sourceStage"));
+
+    if (sourceStage == targetStage) return;
+
+    const [sourceList, setSourceList] = colsMap[sourceStage];
+    const [targetList, setTargetList] = colsMap[targetStage];
+
+    const draggedTask = sourceList.find((t: any) => t.id == taskId);
+    if (!draggedTask) return;
+
+    setSourceList(sourceList.filter((t: any) => t.id !== taskId));
+    setTargetList([...targetList, draggedTask]);
+
+    setShowToast(true);
+    toast.success(t("tasksBoard.taskMovedSuccessfully"));
+  };
+
   useEffect(() => {
     const savedBoard = localStorage.getItem("tasksBoard");
 
@@ -104,7 +138,20 @@ const TasksBoard = () => {
         {columns.map((col) => (
           <div
             key={col.id}
-            className="col text-center d-flex flex-column border border-2 rounded p-0 gap-2"
+            className={`col text-center d-flex flex-column border border-2 rounded p-0 gap-2`}
+            onDragOver={(e) => handleDragOver(e, col.id)}
+            onDragLeave={handleDragLeave}
+            onDrop={(e) => handleDrop(e, col.id)}
+            style={{
+              transition: "background-color 0.2s ease, border-color 0.2s ease",
+              backgroundColor:
+                dragOverColumn == col.id
+                  ? "rgba(13, 110, 253, 0.08)"
+                  : "transparent",
+              borderColor: dragOverColumn == col.id ? "#0d6efd" : undefined,
+              borderStyle: dragOverColumn == col.id ? "dashed" : undefined,
+              minHeight: "200px",
+            }}
           >
             <div className={`${col.color} p-3 fw-bold`}>{col.title}</div>
             <div className="p-2">
@@ -118,6 +165,7 @@ const TasksBoard = () => {
                     currentStage={col.id}
                     onMoveNext={handleMoveNext}
                     onDelete={handleDelete}
+                    headerColor={col.color}
                   />
                 ))
               )}
@@ -125,7 +173,7 @@ const TasksBoard = () => {
 
             {col.id == 1 && (
               <button
-                className="w-50 mx-auto btn btn-primary"
+                className="w-50 mx-auto btn btn-outline-primary"
                 onClick={() => setIsModalOpen(true)}
               >
                 {t("tasksBoard.addNewTask")}
@@ -146,7 +194,7 @@ const TasksBoard = () => {
           />
         </>
       )}
-      {/* Success Message */}
+      {/* Notification Messages */}
       {showToast && (
         <ToastContainer position="top-center" closeOnClick autoClose={1500} />
       )}

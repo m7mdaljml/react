@@ -22,7 +22,7 @@ const FormModal = ({ closeModal, task, setTask, onSubmit }) => {
     )
       newErrors.estimatedTime = true;
 
-    if (task.priority == "" || task.priority == null) newErrors.priority = true;
+    if (task.priority == null) newErrors.priority = true;
 
     setErrors(newErrors);
 
