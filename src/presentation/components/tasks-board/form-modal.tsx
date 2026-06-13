@@ -2,7 +2,14 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TaskPriorityEnum } from "../../../domain/meta/enums/tasks-board/priority";
 
-const FormModal = ({ closeModal, task, setTask, onSubmit }) => {
+const FormModal = ({
+  closeModal,
+  task,
+  setTask,
+  onSubmit,
+  onEdit,
+  isEditMode = false,
+}) => {
   const { t } = useTranslation();
 
   const [errors, setErrors] = useState({});
@@ -59,7 +66,11 @@ const FormModal = ({ closeModal, task, setTask, onSubmit }) => {
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header gap-2">
-              <h5 className="modal-title">{t("tasksBoard.addNewTask")}</h5>
+              <h5 className="modal-title">
+                {isEditMode
+                  ? t("tasksBoard.editTask")
+                  : t("tasksBoard.addNewTask")}
+              </h5>
             </div>
 
             <div className="modal-body d-flex flex-column gap-4">
@@ -150,8 +161,11 @@ const FormModal = ({ closeModal, task, setTask, onSubmit }) => {
                 {t("expenseTracker.close")}
               </button>
 
-              <button className="btn btn-primary" onClick={handleFormSubmit}>
-                {t("tasksBoard.add")}
+              <button
+                className="btn btn-primary"
+                onClick={isEditMode ? onEdit : handleFormSubmit}
+              >
+                {isEditMode ? t("tasksBoard.save") : t("tasksBoard.add")}
               </button>
             </div>
           </div>

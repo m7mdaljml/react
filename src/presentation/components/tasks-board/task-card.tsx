@@ -6,6 +6,7 @@ const TaskCard = ({
   currentStage,
   onMoveNext,
   onDelete,
+  onEdit,
   headerColor,
 }) => {
   const { t } = useTranslation();
@@ -18,13 +19,14 @@ const TaskCard = ({
   };
 
   const handleDragEnd = (e: any) => (e.currentTarget.style.opacity = "1");
+
   return (
     <div
       className="card shadow rounded-4 mb-3"
       draggable
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      style={{ cursor: "grab", overflow: "hidden" }}
+      style={{ cursor: "grab", overflow: "hidden", height: "200px" }}
     >
       <div className={headerColor} style={{ height: "15px" }}></div>
       <div className="p-3">
@@ -86,6 +88,17 @@ const TaskCard = ({
                   </li>
                 )}
 
+                {currentStage == 1 && (
+                  <li>
+                    <button
+                      className="dropdown-item"
+                      onClick={() => onEdit(task, currentStage)}
+                    >
+                      {t("tasksBoard.edit")}
+                    </button>
+                  </li>
+                )}
+
                 <li>
                   <button
                     className="dropdown-item text-danger"
@@ -99,7 +112,7 @@ const TaskCard = ({
           </div>
         </div>
 
-        <hr className="my-2" />
+        <hr className="my-3" />
 
         <div className="d-flex justify-content-between align-items-center">
           <div className="d-flex align-items-center gap-2">

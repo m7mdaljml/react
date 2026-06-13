@@ -15,6 +15,7 @@ const TasksBoard = () => {
   const [reviewList, setReviewList] = useState([]);
   const [doneList, setDoneList] = useState([]);
   const [showToast, setShowToast] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const [task, setTask] = useState(new Task());
 
@@ -71,6 +72,23 @@ const TasksBoard = () => {
     const [currentList, setCurrentList] = colsMap[currentStage];
     setCurrentList(currentList.filter((t: any) => t.id !== task.id));
     toast.success(t("tasksBoard.taskDeletedSuccessfully"));
+  };
+
+  const updateTask = (updatedTask: any) => {
+    const update = (list: any[]) =>
+      list.map((t) => (t.id === updatedTask.id ? updatedTask : t));
+
+    setTodoList((t) => update(t));
+  };
+
+  const handleEdit = () => {
+    updateTask(task);
+
+    toast.success(t("tasksBoard.taskUpdatedSuccessfully"));
+
+    setIsEditMode(false);
+    setIsModalOpen(false);
+    setTask(new Task());
   };
 
   const handleDragOver = (e: any, columnId: number) => {
@@ -133,7 +151,6 @@ const TasksBoard = () => {
   return (
     <div>
       <h2 className="text-center mt-3">{t("tasksBoard.title")}</h2>
-
       <div className="row gap-3 w-100 p-4 mt-4 vh-100">
         {columns.map((col) => (
           <div
@@ -165,6 +182,11 @@ const TasksBoard = () => {
                     currentStage={col.id}
                     onMoveNext={handleMoveNext}
                     onDelete={handleDelete}
+                    onEdit={() => {
+                      setIsEditMode(true);
+                      setTask(task);
+                      setIsModalOpen(true);
+                    }}
                     headerColor={col.color}
                   />
                 ))
@@ -173,7 +195,7 @@ const TasksBoard = () => {
 
             {col.id == 1 && (
               <button
-                className="w-50 mx-auto btn btn-outline-primary"
+                className="w-50 mx-auto btn btn-outline-primary mb-2"
                 onClick={() => setIsModalOpen(true)}
               >
                 {t("tasksBoard.addNewTask")}
@@ -191,6 +213,8 @@ const TasksBoard = () => {
             task={task}
             setTask={setTask}
             onSubmit={handleSubmit}
+            onEdit={handleEdit}
+            isEditMode={isEditMode}
           />
         </>
       )}

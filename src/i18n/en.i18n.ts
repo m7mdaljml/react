@@ -94,6 +94,10 @@ export default {
     moveToNextStep: "Move to Next Step",
     taskMovedSuccessfully: "Task moved successfully",
     taskDeletedSuccessfully: "Task deleted successfully",
+    edit: "Edit",
+    editTask: "Edit Task",
+    save: "Save",
+    taskUpdatedSuccessfully: "Task updated successfully",
   },
   enums: {
     TransactionTypeEnum: {

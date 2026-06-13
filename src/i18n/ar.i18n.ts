@@ -96,6 +96,10 @@ export default {
     moveToNextStep: "الانتقال للمرحلة التالية",
     taskMovedSuccessfully: "تم نقل المهمة بنجاح",
     taskDeletedSuccessfully: "تم حذف المهمة بنجاح",
+    edit: "تعديل",
+    editTask: "تعديل المهمة",
+    save: "حفظ",
+    taskUpdatedSuccessfully: "تم تحديث المهمة بنجاح",
   },
   enums: {
     TransactionTypeEnum: {
