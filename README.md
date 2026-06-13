@@ -1,8 +1,8 @@
 # React + TypeScript + Vite
 
-## This project is for React learning and create multi functional tools to teach react features
+This project is designed for learning React through a collection of practical applications that demonstrate different React concepts, patterns, and features.
 
-## Every Tab in navbar is a single project
+Each navigation tab represents a standalone project.
 
 ---
 
@@ -13,6 +13,7 @@
 | 1   | 📝 TODO List       |
 | 2   | 🌤️ Weather App     |
 | 3   | 💰 Expense Tracker |
+| 4   | 📋 Tasks Board     |
 
 ---
 
@@ -22,9 +23,7 @@
 
 A simple and interactive TODO list application built with React, featuring task management, localization, and persistent storage using `localStorage`.
 
----
-
-## 🚀 Features
+### 🚀 Features
 
 - ✅ Add new tasks
 - ❌ Delete tasks
@@ -34,9 +33,9 @@ A simple and interactive TODO list application built with React, featuring task 
 - 💾 Persistent storage with `localStorage`
 - 🎨 Styled using Bootstrap
 
----
-
 <!-- ./First Tab : TODO List App -->
+
+---
 
 <!-- Second Tab : Weather App -->
 
@@ -44,9 +43,7 @@ A simple and interactive TODO list application built with React, featuring task 
 
 A real-time weather application built with React that fetches live data from the OpenWeather API. It allows users to search for any city and view detailed weather conditions with dynamic UI feedback based on weather type.
 
----
-
-## 🚀 Features
+### 🚀 Features
 
 - 🔍 Search weather by city name
 - 🌡️ Live weather data from OpenWeather API
@@ -61,9 +58,7 @@ A real-time weather application built with React that fetches live data from the
 - ⚠️ Error handling for invalid cities or API failures
 - 🎨 Responsive UI using Bootstrap + custom CSS
 
----
-
-## 🧠 Technical Highlights
+### 🧠 Technical Highlights
 
 - Uses `axios` for API requests
 - Uses OpenWeather endpoint: `https://api.openweathermap.org/data/2.5/weather`
@@ -72,7 +67,7 @@ A real-time weather application built with React that fetches live data from the
 - Proper loading/error/empty states management
 - Time conversion using timezone offset logic
 
-<!-- ./Second Tab : Weather App -->
+## <!-- ./Second Tab : Weather App -->
 
 <!-- Third Tab : Expense Tracker -->
 
@@ -80,9 +75,7 @@ A real-time weather application built with React that fetches live data from the
 
 A full-stack expense management application built with React, TypeScript, PHP, and MySQL. It allows users to manage their income and expenses while providing insightful dashboard analytics and filtering capabilities.
 
----
-
-## 🚀 Features
+### 🚀 Features
 
 - ➕ Create new transactions
 - ✏️ Edit existing transactions
@@ -98,9 +91,7 @@ A full-stack expense management application built with React, TypeScript, PHP, a
 - 🎨 Responsive UI built with Bootstrap
 - ⚠️ Loading and empty state handling
 
----
-
-## 🧠 Technical Highlights
+### 🧠 Technical Highlights
 
 - Built with **React + TypeScript + Vite**
 - Backend powered by **PHP REST APIs**
@@ -113,10 +104,45 @@ A full-stack expense management application built with React, TypeScript, PHP, a
 - Charts implemented using **ECharts**
 - Clean component-based architecture with React Hooks
 
----
+### 🔙🔚 APIs Endpoints
 
-## 🔙🔚 APIS Endpoints
-
-- You Will find the APIS Endpoints in the `BE` folder inside the expense-tracker folder.
+- You will find the API endpoints in the `BE` folder inside the `expense-tracker` folder.
 
 <!-- ./Third Tab : Expense Tracker -->
+
+---
+
+<!-- Fourth Tab : Tasks Board -->
+
+## 📋 Fourth Tab: Tasks Board
+
+A Kanban-style task management board built with React. It allows users to create tasks, organize them across stages (To Do, In Progress, Review, Done), and move them between columns using drag & drop or action menus.
+
+### 🚀 Features
+
+- ➕ Add new tasks with title, description, assignee, estimated time, and priority
+- 🔄 Move tasks to the next stage via action menu
+- 🖱️ Drag and drop tasks between any columns
+- 🗑️ Delete tasks from any stage
+- ✏️ Edit existing tasks
+- 🏷️ Priority badges (High, Medium, Low) with color coding
+- 👤 Assignee display with avatar initials
+- ⏱️ Estimated time tracking
+- 🎨 Color-coded column headers and card header strips
+- 💡 Visual drag-over feedback (highlighted drop zone)
+- 🌐 Multi-language support using i18n
+- 💾 Persistent storage with `localStorage`
+- 🎨 Styled using Bootstrap
+
+### 🧠 Technical Highlights
+
+- Built with **React + TypeScript + Vite**
+- Uses native **HTML5 Drag and Drop API** (no external drag libraries)
+- `dataTransfer` used to pass task ID and source column during drag
+- Column state managed with individual `useState` hooks mapped via `colsMap`
+- Reusable `TaskCard` and `FormModal` components
+- Tasks persisted to `localStorage` on every state change
+- Toast notifications via `react-toastify`
+- Clean component-based architecture with React Hooks
+
+<!-- ./Fourth Tab : Tasks Board -->
