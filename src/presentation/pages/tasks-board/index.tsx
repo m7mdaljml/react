@@ -49,6 +49,8 @@ const TasksBoard = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setTask(new Task());
+    setIsEditMode(false);
   };
 
   const handleSubmit = () => {
