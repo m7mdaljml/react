@@ -125,6 +125,7 @@ A Kanban-style task management board built with React. It allows users to create
 - 🖱️ Drag and drop tasks between any columns
 - 🗑️ Delete tasks from any stage
 - ✏️ Edit existing tasks
+- 🔍 Filter tasks by title, priority, and assignee
 - 🏷️ Priority badges (High, Medium, Low) with color coding
 - 👤 Assignee display with avatar initials
 - ⏱️ Estimated time tracking
@@ -144,5 +145,6 @@ A Kanban-style task management board built with React. It allows users to create
 - Tasks persisted to `localStorage` on every state change
 - Toast notifications via `react-toastify`
 - Clean component-based architecture with React Hooks
+- Filtering with filter state management and filtering tasks
 
 <!-- ./Fourth Tab : Tasks Board -->

@@ -3,11 +3,13 @@ import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from "react-toastify";
 import { Task } from "../../../domain/def/task";
 import { initializeUsers } from "../../../domain/utilities/init-users";
+import { FaFilter } from "react-icons/fa";
 import type { IUser } from "../../../domain/meta/i-user";
 
 // Components
 import FormModal from "../../components/tasks-board/form-modal";
 import TaskCard from "../../components/tasks-board/task-card";
+import FilterModal from "../../components/tasks-board/filter";
 
 const TasksBoard = () => {
   const { t } = useTranslation();
@@ -19,28 +21,62 @@ const TasksBoard = () => {
   const [showToast, setShowToast] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [users, setUsers] = useState<IUser[]>(() => initializeUsers());
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
+  const emptyFilter = {
+    title: "",
+    assignedTo: "",
+    priority: "",
+  };
+
+  const [filters, setFilters] = useState(emptyFilter);
   const [task, setTask] = useState(new Task());
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [dragOverColumn, setDragOverColumn] = useState<number | null>(null);
 
+  const hasFilters = Object.values(filters).some((v) => v !== "" && v != null);
+
+  const getFilteredTasks = (tasks: any[]) => {
+    return tasks.filter((task) => {
+      const matchTitle =
+        !filters.title ||
+        task.title.toLowerCase().includes(filters.title.toLowerCase());
+
+      const matchAssignee =
+        !filters.assignedTo || task.assignedTo === filters.assignedTo;
+
+      const matchPriority =
+        !filters.priority || task.priority === +filters.priority;
+
+      return matchTitle && matchAssignee && matchPriority;
+    });
+  };
+
   const columns = [
-    { id: 1, title: t("tasksBoard.todo"), color: "bg-info", list: todoList },
+    {
+      id: 1,
+      title: t("tasksBoard.todo"),
+      color: "bg-info",
+      list: getFilteredTasks(todoList),
+    },
     {
       id: 2,
       title: t("tasksBoard.inProgress"),
       color: "bg-warning",
-      list: inProgressList,
+      list: getFilteredTasks(inProgressList),
     },
     {
       id: 3,
       title: t("tasksBoard.review"),
       color: "bg-primary",
-      list: reviewList,
+      list: getFilteredTasks(reviewList),
     },
-    { id: 4, title: t("tasksBoard.done"), color: "bg-success", list: doneList },
+    {
+      id: 4,
+      title: t("tasksBoard.done"),
+      color: "bg-success",
+      list: getFilteredTasks(doneList),
+    },
   ];
 
   const colsMap: any = {
@@ -60,6 +96,7 @@ const TasksBoard = () => {
     setTodoList([...todoList, task]);
     setTask(new Task());
     closeModal();
+    setFilters(emptyFilter);
     setShowToast(true);
     toast.success(`${t("tasksBoard.taskAddedSuccessfully")}`);
   };
@@ -160,6 +197,28 @@ const TasksBoard = () => {
 
   return (
     <div>
+      <nav className="navbar navbar-expand-lg bg-light border-bottom">
+        <div className="container-fluid">
+          <div className="navbar-nav w-100 d-flex justify-content-end gap-2">
+            <button
+              className="btn btn-outline-primary"
+              onClick={() => setIsFilterModalOpen(true)}
+            >
+              <div className="d-flex gap-2 justify-content-center">
+                <FaFilter className="mt-1" /> {t("expenseTracker.filter")}
+              </div>
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-primary"
+              onClick={() => setIsModalOpen(true)}
+            >
+              {t("tasksBoard.addNewTask")}
+            </button>
+          </div>
+        </div>
+      </nav>
+
       <h2 className="text-center mt-3">{t("tasksBoard.title")}</h2>
       <div className="row gap-3 w-100 p-4 mt-4 vh-100">
         {columns.map((col) => (
@@ -182,8 +241,12 @@ const TasksBoard = () => {
           >
             <div className={`${col.color} p-3 fw-bold`}>{col.title}</div>
             <div className="p-2">
-              {col.list.length == 0 ? (
+              {col.list.length == 0 && !hasFilters ? (
                 <p className="text-muted">{t("tasksBoard.noTasks")}</p>
+              ) : col.list.length == 0 && hasFilters ? (
+                <p className="text-muted">
+                  {t("tasksBoard.noTasksWithFilter")}
+                </p>
               ) : (
                 col.list.map((task: any) => (
                   <TaskCard
@@ -202,15 +265,6 @@ const TasksBoard = () => {
                 ))
               )}
             </div>
-
-            {col.id == 1 && (
-              <button
-                className="w-50 mx-auto btn btn-outline-primary mb-2"
-                onClick={() => setIsModalOpen(true)}
-              >
-                {t("tasksBoard.addNewTask")}
-              </button>
-            )}
           </div>
         ))}
       </div>
@@ -232,6 +286,15 @@ const TasksBoard = () => {
       {/* Notification Messages */}
       {showToast && (
         <ToastContainer position="top-center" closeOnClick autoClose={1500} />
+      )}
+
+      {isFilterModalOpen && (
+        <FilterModal
+          filters={filters}
+          setFilters={setFilters}
+          closeModal={() => setIsFilterModalOpen(false)}
+          users={users}
+        />
       )}
     </div>
   );

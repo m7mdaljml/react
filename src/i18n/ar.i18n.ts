@@ -100,6 +100,13 @@ export default {
     editTask: "تعديل المهمة",
     save: "حفظ",
     taskUpdatedSuccessfully: "تم تحديث المهمة بنجاح",
+    filter: "تصفية",
+    resetFilter: "إعادة تعيين التصفية",
+    applyFilter: "تطبيق التصفية",
+    searchByText: "بحث بالنص",
+    filterByPriority: "تصفية حسب الأولوية",
+    filterByAssignee: "تصفية حسب المسؤول عنها",
+    noTasksWithFilter: "لا توجد مهام، حدّث معايير التصفية وحاول مرة أخرى.",
   },
   enums: {
     TransactionTypeEnum: {

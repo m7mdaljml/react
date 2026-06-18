@@ -98,6 +98,13 @@ export default {
     editTask: "Edit Task",
     save: "Save",
     taskUpdatedSuccessfully: "Task updated successfully",
+    filter: "Filter",
+    applyFilter: "Apply Filter",
+    resetFilter: "Reset Filter",
+    searchByText: "Search by text",
+    filterByPriority: "Filter by Priority",
+    filterByAssignee: "Filter by Assignee",
+    noTasksWithFilter: "No Tasks, update your filter criteria and try again",
   },
   enums: {
     TransactionTypeEnum: {
