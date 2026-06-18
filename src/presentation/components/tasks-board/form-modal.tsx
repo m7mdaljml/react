@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TaskPriorityEnum } from "../../../domain/meta/enums/tasks-board/priority";
+import type { IUser } from "../../../domain/meta/i-user";
 
 const FormModal = ({
   closeModal,
@@ -9,6 +10,7 @@ const FormModal = ({
   onSubmit,
   onEdit,
   isEditMode = false,
+  users,
 }) => {
   const { t } = useTranslation();
 
@@ -95,10 +97,8 @@ const FormModal = ({
                 }
               />
 
-              <input
-                type="text"
-                className={`form-control ${validationClass("assignedTo")}`}
-                placeholder={t("tasksBoard.assignedTo")}
+              <select
+                className={`form-select ${validationClass("assignedTo")}`}
                 value={task.assignedTo}
                 onChange={(e) =>
                   setTask({
@@ -106,7 +106,14 @@ const FormModal = ({
                     assignedTo: e.target.value,
                   })
                 }
-              />
+              >
+                <option value="">{t("tasksBoard.assignedTo")}</option>
+                {users.map((user: IUser) => (
+                  <option key={user.id} value={user.id}>
+                    {user.name}
+                  </option>
+                ))}
+              </select>
 
               <input
                 type="number"

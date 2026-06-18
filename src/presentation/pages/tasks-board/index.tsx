@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from "react-toastify";
 import { Task } from "../../../domain/def/task";
+import { initializeUsers } from "../../../domain/utilities/init-users";
+import type { IUser } from "../../../domain/meta/i-user";
 
 // Components
 import FormModal from "../../components/tasks-board/form-modal";
@@ -16,6 +18,7 @@ const TasksBoard = () => {
   const [doneList, setDoneList] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [users, setUsers] = useState<IUser[]>(() => initializeUsers());
 
   const [task, setTask] = useState(new Task());
 
@@ -67,12 +70,14 @@ const TasksBoard = () => {
     const [nextList, setNextList] = colsMap[currentStage + 1];
     setCurrentList(currentList.filter((t: any) => t.id !== task.id));
     setNextList([...nextList, task]);
+    setShowToast(true);
     toast.success(t("tasksBoard.taskMovedSuccessfully"));
   };
 
   const handleDelete = (task: any, currentStage: number) => {
     const [currentList, setCurrentList] = colsMap[currentStage];
     setCurrentList(currentList.filter((t: any) => t.id !== task.id));
+    setShowToast(true);
     toast.success(t("tasksBoard.taskDeletedSuccessfully"));
   };
 
@@ -85,9 +90,8 @@ const TasksBoard = () => {
 
   const handleEdit = () => {
     updateTask(task);
-
+    setShowToast(true);
     toast.success(t("tasksBoard.taskUpdatedSuccessfully"));
-
     setIsEditMode(false);
     setIsModalOpen(false);
     setTask(new Task());
@@ -149,6 +153,10 @@ const TasksBoard = () => {
       }),
     );
   }, [todoList, inProgressList, reviewList, doneList]);
+
+  useEffect(() => {
+    setUsers(initializeUsers());
+  }, []);
 
   return (
     <div>
@@ -217,6 +225,7 @@ const TasksBoard = () => {
             onSubmit={handleSubmit}
             onEdit={handleEdit}
             isEditMode={isEditMode}
+            users={users}
           />
         </>
       )}

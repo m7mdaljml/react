@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { TaskPriorityEnum } from "../../../domain/meta/enums/tasks-board/priority";
+import type { IUser } from "../../../domain/meta/i-user";
 
 const TaskCard = ({
   task,
@@ -19,6 +20,11 @@ const TaskCard = ({
   };
 
   const handleDragEnd = (e: any) => (e.currentTarget.style.opacity = "1");
+  const storedUsers = localStorage.getItem("users");
+
+  const assignedUser = JSON.parse(storedUsers || "[]")?.find(
+    (user: IUser) => user.id === task.assignedTo,
+  );
 
   return (
     <div
@@ -116,19 +122,32 @@ const TaskCard = ({
 
         <div className="d-flex justify-content-between align-items-center">
           <div className="d-flex align-items-center gap-2">
-            <div
-              className="rounded-circle bg-primary text-white fw-bold d-flex justify-content-center align-items-center flex-shrink-0"
-              style={{
-                width: "42px",
-                height: "42px",
-                fontSize: "14px",
-              }}
-            >
-              {task.assignedTo.substring(0, 2).toUpperCase()}
-            </div>
+            {assignedUser?.image ? (
+              <img
+                src={assignedUser?.image}
+                alt={assignedUser?.name}
+                className="rounded-circle border border-2 border-light"
+                style={{
+                  width: "42px",
+                  height: "42px",
+                }}
+              />
+            ) : (
+              <div
+                className="rounded-circle bg-primary text-white fw-bold d-flex justify-content-center align-items-center flex-shrink-0"
+                style={{
+                  width: "42px",
+                  height: "42px",
+                  fontSize: "14px",
+                }}
+              >
+                {assignedUser?.name?.substring(0, 2).toUpperCase()}
+              </div>
+            )}
 
-            <div>
-              <div className="fw-semibold">{task.assignedTo}</div>
+            <div className="d-flex flex-column">
+              <div className="fw-semibold">{assignedUser?.name}</div>
+              <div className="text-muted">{assignedUser?.jobTitle}</div>
             </div>
           </div>
 

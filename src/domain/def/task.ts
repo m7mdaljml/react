@@ -2,12 +2,14 @@ import { TaskPriorityEnum } from "../meta/enums/tasks-board/priority";
 import { TaskStatusEnum } from "../meta/enums/tasks-board/status";
 import { uid } from "../utilities/uid";
 import type { ITask } from "../meta/i-task";
+import type { IUser } from "../meta/i-user";
+import { User } from "./user";
 
 class Task implements ITask {
   id: string;
   title: string;
   description: string;
-  assignedTo: string;
+  assignedTo: IUser;
   estimatedTime: number;
   priority: TaskPriorityEnum;
   status: TaskStatusEnum;
@@ -18,7 +20,7 @@ class Task implements ITask {
     id = uid(),
     title = "",
     description = "",
-    assignedTo = "",
+    assignedTo = new User(),
     estimatedTime = 0,
     priority = null,
     status = TaskStatusEnum.ToDo,
