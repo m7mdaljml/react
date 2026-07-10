@@ -79,7 +79,11 @@ const ExpenseDashboard = () => {
   };
 
   useEffect(() => {
-    init();
+    const loadData = async () => {
+      await init();
+    };
+
+    loadData();
   }, []);
 
   return (
