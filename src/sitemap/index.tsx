@@ -22,12 +22,18 @@ export const routes: RouteObject[] = [
       {
         path: "todo",
         element: <TodoApp />,
-        handle: { label: { en: "TODO List", ar: "قائمة المهام" } },
+        handle: {
+          label: {
+            en: "TODO List",
+            ar: "قائمة المهام",
+            fr: "Liste des tâches",
+          },
+        },
       },
       {
         path: "weather",
         element: <WeatherApp />,
-        handle: { label: { en: "Weather", ar: "الطقس" } },
+        handle: { label: { en: "Weather", ar: "الطقس", fr: "Météo" } },
       },
       {
         path: "expense-tracker",
@@ -36,6 +42,7 @@ export const routes: RouteObject[] = [
           label: {
             en: "Expense Tracker",
             ar: "تتبع المصروفات",
+            fr: "Suivi des dépenses",
           },
         },
         children: [
@@ -46,6 +53,7 @@ export const routes: RouteObject[] = [
               label: {
                 en: "Dashboard",
                 ar: "لوحة التحكم",
+                fr: "Tableau de bord",
               },
             },
           },
@@ -56,6 +64,7 @@ export const routes: RouteObject[] = [
               label: {
                 en: "Transactions",
                 ar: "المعاملات",
+                fr: "Transactions",
               },
             },
           },
@@ -64,7 +73,13 @@ export const routes: RouteObject[] = [
       {
         path: "tasks-board",
         element: <TasksBoard />,
-        handle: { label: { en: "Tasks Board", ar: "لوحة المهام " } },
+        handle: {
+          label: {
+            en: "Tasks Board",
+            ar: "لوحة المهام ",
+            fr: "Tableau des tâches",
+          },
+        },
       },
 
       {

@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { routes } from "../../../sitemap";
 import { useTranslation } from "react-i18next";
+import { useConfig } from "../../../context/context";
 
 const LeftSideMenu = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
+  const config = useConfig();
 
   const expenseRoute = routes?.[0]?.children?.find(
     (r) => r.path == "expense-tracker",
@@ -28,7 +30,10 @@ const LeftSideMenu = () => {
                   `nav-link py-1 ${isActive ? "active" : "link-body-emphasis"}`
                 }
               >
-                {child.handle?.label?.[lang]}
+                {child.handle?.label?.[lang] ||
+                  child.handle?.label?.[
+                    config.cultures.find((c) => c.isDefault)?.lang
+                  ]}
               </NavLink>
             </li>
           );

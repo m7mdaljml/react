@@ -1,22 +1,30 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>React Training</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <!-- Uncomment for enable react dev tools an run it in termainal with 'react-devtools' -->
-    <!-- <script src="http://localhost:8097"></script> -->
-    <script type="module" src="/src/App.tsx"></script>
-    <script>
-      window.appConfig = {
-        baseUrl: "http://localhost/api", // This for local testing
-        // baseUrl: "api", // This for production and will go to https://react-projects.freedev.app using vite proxy
-        currency: { en: "JD", ar: "الدينار الأردني" },
-      };
-    </script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>React Training</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <!-- Uncomment for enable react dev tools an run it in termainal with 'react-devtools' -->
+  <!-- <script src="http://localhost:8097"></script> -->
+  <script type="module" src="/src/App.tsx"></script>
+  <script>
+    window.appConfig = {
+      baseUrl: "http://localhost/api", // This for local testing
+      // baseUrl: "api", // This for production and will go to https://react-projects.freedev.app using vite proxy
+      currency: { en: "JD", ar: "الدينار الأردني" },
+      cultures: [
+        { id: "en-US", name: "English", lang: 'en', isDefault: true, dir: "ltr" },
+        { id: "ar-EG", name: "العربية", lang: 'ar', isDefault: false, dir: "rtl" },
+        { id: "fr-Fr", name: "Francais", lang: 'fr', isDefault: false, dir: "ltr" }
+      ]
+    };
+  </script>
+</body>
+
 </html>

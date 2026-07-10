@@ -6,6 +6,13 @@ export type THashMap = {
 export type TAppConfig = {
   baseUrl: string;
   currency: THashMap;
+  cultures: {
+    id: string;
+    name: string;
+    lang: string;
+    isDefault: boolean;
+    dir: string;
+  }[];
 };
 
 export type TAppRoute = {

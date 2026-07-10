@@ -3,6 +3,7 @@ import { routes } from "../../../sitemap";
 import { useEffect, useState } from "react";
 import i18n from "../../../i18n/index.i18n";
 import { FaGlobe } from "react-icons/fa";
+import { useConfig } from "../../../context/context";
 
 const extractRoutes = () => {
   const appRoutes = routes?.[0]?.children || [];
@@ -25,23 +26,30 @@ const extractRoutes = () => {
 };
 
 const Navbar = () => {
+  const config = useConfig();
+
   const navRoutes = extractRoutes();
 
-  const [lang, setLang] = useState<"en" | "ar">(() => {
+  const [lang, setLang] = useState(() => {
     const defaultLang = localStorage.getItem("lang");
-    return defaultLang == "ar" || defaultLang == "en" ? defaultLang : "en";
+    return (
+      config.cultures.find((c) => c.lang === defaultLang)?.lang ||
+      config.cultures.find((c) => c.isDefault)?.lang
+    );
   });
 
   useEffect(() => {
-    document.documentElement.dir = lang == "ar" ? "rtl" : "ltr";
-    document.documentElement.lang = lang;
-    i18n.changeLanguage(lang);
+    document.documentElement.dir =
+      config.cultures.find((c) => c.lang == lang)?.dir || "ltr";
+    document.documentElement.lang =
+      config.cultures.find((c) => c.lang == lang)?.lang ||
+      config.cultures.find((c) => c.isDefault)?.lang;
+    i18n.changeLanguage(
+      config.cultures.find((c) => c.lang == lang)?.lang ||
+        config.cultures.find((c) => c.isDefault)?.lang,
+    );
     localStorage.setItem("lang", lang);
   }, [lang]);
-
-  const toggleLang = () => {
-    setLang((lang) => (lang == "en" ? "ar" : "en"));
-  };
 
   const location = useLocation();
 
@@ -65,7 +73,10 @@ const Navbar = () => {
                     }
                     className={`nav-link ${isActive ? "active fw-bold" : ""}`}
                   >
-                    {route.label?.[lang]}
+                    {route.label?.[lang] ||
+                      route.label?.[
+                        config.cultures.find((c) => c.isDefault)?.lang
+                      ]}
                   </Link>
                 </li>
               );
@@ -73,13 +84,52 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <button
-          onClick={toggleLang}
-          className="btn btn-outline-primary ms-2 d-flex align-items-center gap-2"
-        >
-          <FaGlobe />
-          {lang === "ar" ? "EN" : "AR"}
-        </button>
+        {config.cultures.length === 2 ? (
+          <button
+            onClick={() =>
+              setLang(
+                (currentLang) =>
+                  config.cultures.find((c) => c.lang !== currentLang)?.lang ||
+                  currentLang,
+              )
+            }
+            className="btn btn-outline-primary ms-2 d-flex align-items-center gap-2"
+          >
+            <FaGlobe />
+            {config.cultures.find((c) => c.lang !== lang)?.lang.toUpperCase()}
+          </button>
+        ) : (
+          <div className="dropdown ms-2">
+            <button
+              className="btn btn-outline-primary dropdown-toggle d-flex align-items-center gap-2"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <FaGlobe />
+              {lang.toUpperCase()}
+            </button>
+
+            <ul
+              className={`dropdown-menu ${
+                lang !== "ar" ? "dropdown-menu-end" : "dropdown-menu-start"
+              }`}
+            >
+              {config.cultures.map((culture) => (
+                <li key={culture.id}>
+                  <button
+                    className={`dropdown-item ${
+                      culture.lang === lang ? "active" : ""
+                    }`}
+                    onClick={() => setLang(culture.lang)}
+                  >
+                    {culture.name || culture.lang.toUpperCase()}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </nav>
   );
