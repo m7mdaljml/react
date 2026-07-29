@@ -122,6 +122,16 @@ export default {
     export: "Exporter",
   },
 
+  aiChat: {
+    assistant: "Assistant IA",
+    typing: "En train d'écrire...",
+    online: "En ligne",
+    startConversation: "Démarrer une conversation",
+    typeBelow: "Tapez un message ci-dessous",
+    inputPlaceholder: "Tapez un message...",
+    send: "Envoyer",
+    errorResponse: "Erreur : échec de la récupération de la réponse.",
+  },
   enums: {
     TransactionTypeEnum: {
       [TransactionTypeEnum.Income]: "Revenu",

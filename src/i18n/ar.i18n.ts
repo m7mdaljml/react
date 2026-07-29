@@ -113,6 +113,16 @@ export default {
     noTasksWithFilter: "لا توجد مهام، حدّث معايير التصفية وحاول مرة أخرى.",
     export: "تصدير",
   },
+  aiChat: {
+    assistant: "المساعد الذكي",
+    typing: "جارٍ الكتابة...",
+    online: "متصل",
+    startConversation: "ابدأ محادثة",
+    typeBelow: "اكتب رسالة أدناه",
+    inputPlaceholder: "اكتب رسالة...",
+    send: "إرسال",
+    errorResponse: "خطأ: فشل في جلب الرد.",
+  },
   enums: {
     TransactionTypeEnum: {
       [TransactionTypeEnum.Income]: "دخل",

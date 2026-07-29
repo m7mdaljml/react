@@ -1,4 +1,7 @@
+import ChatWindow from '../../components/ai-chat/ChatWindow';
+
 const AIChat = () => {
-  return <div></div>;
+  return <ChatWindow />;
 };
+
 export default AIChat;

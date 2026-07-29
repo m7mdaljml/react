@@ -111,6 +111,16 @@ export default {
     noTasksWithFilter: "No Tasks, update your filter criteria and try again",
     export: "Export",
   },
+  aiChat: {
+    assistant: "AI Assistant",
+    typing: "Typing...",
+    online: "Online",
+    startConversation: "Start a conversation",
+    typeBelow: "Type a message below",
+    inputPlaceholder: "Type a message...",
+    send: "Send",
+    errorResponse: "Error: failed to fetch response.",
+  },
   enums: {
     TransactionTypeEnum: {
       [TransactionTypeEnum.Income]: "Income",
