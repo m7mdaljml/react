@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { FaPlus, FaTrash, FaCheck } from "react-icons/fa";
+import { FaPlus, FaTrash, FaCheck, FaFileExcel } from "react-icons/fa";
 import type { TTask } from "../../../domain/meta/i-types";
+import { exportToExcel } from "../../../domain/utilities/export-to-excel";
 // components
 import Filter from "../../components/todo-app/filter";
 
@@ -88,6 +89,19 @@ const TODO = () => {
         return new Date(a.date).getTime() - new Date(b.date).getTime();
       else return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
+
+  const handleExport = () => {
+    const exportData = filteredTasks.map((task) => ({
+      [t("todo.task")]: task.text,
+      [t("todo.date")]: new Date(task.date).toLocaleString(),
+      [t("todo.status")]: task.done ? t("todo.done") : t("todo.notDone"),
+    }));
+
+    exportToExcel(exportData, {
+      fileName: "todo-list",
+    });
+  };
+
   return (
     <>
       <h1 className="d-flex justify-content-center py-4">TODO List</h1>
@@ -123,6 +137,13 @@ const TODO = () => {
                 onClick={handleAddTask}
               >
                 <FaPlus /> {t("todo.add")}
+              </button>
+              <button
+                className="btn btn-success d-flex gap-2 align-items-center"
+                disabled={!filteredTasks.length}
+                onClick={handleExport}
+              >
+                <FaFileExcel /> {t("todo.export")}
               </button>
             </div>
           </div>

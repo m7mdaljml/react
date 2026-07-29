@@ -27,6 +27,10 @@ export default {
     all: "Tous",
     searchByText: "Rechercher par texte",
     resetFilter: "Réinitialiser le filtre",
+    export: "Exporter",
+    task: "Tâche",
+    date: "Date",
+    status: "Statut",
   },
 
   weather: {
@@ -115,6 +119,7 @@ export default {
     filterByAssignee: "Filtrer par responsable",
     noTasksWithFilter:
       "Aucune tâche, mettez à jour vos critères de filtre et réessayez",
+    export: "Exporter",
   },
 
   enums: {

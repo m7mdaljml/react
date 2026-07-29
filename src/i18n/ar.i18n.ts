@@ -26,6 +26,10 @@ export default {
     all: "الكل",
     searchByText: "بحث بالنص",
     resetFilter: "إعادة تعيين التصفية",
+    export: "تصدير",
+    task: "المهمة",
+    date: "التاريخ",
+    status: "الحالة",
   },
   weather: {
     title: "الطقس",
@@ -107,6 +111,7 @@ export default {
     filterByPriority: "تصفية حسب الأولوية",
     filterByAssignee: "تصفية حسب المسؤول عنها",
     noTasksWithFilter: "لا توجد مهام، حدّث معايير التصفية وحاول مرة أخرى.",
+    export: "تصدير",
   },
   enums: {
     TransactionTypeEnum: {

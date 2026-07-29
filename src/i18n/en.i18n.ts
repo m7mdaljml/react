@@ -25,6 +25,10 @@ export default {
     all: "All",
     searchByText: "Search by text",
     resetFilter: "Reset Filter",
+    export: "Export",
+    task: "Task",
+    date: "Date",
+    status: "Status",
   },
   weather: {
     title: "Weather",
@@ -105,6 +109,7 @@ export default {
     filterByPriority: "Filter by Priority",
     filterByAssignee: "Filter by Assignee",
     noTasksWithFilter: "No Tasks, update your filter criteria and try again",
+    export: "Export",
   },
   enums: {
     TransactionTypeEnum: {

@@ -3,8 +3,9 @@ import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from "react-toastify";
 import { Task } from "../../../domain/def/task";
 import { initializeUsers } from "../../../domain/utilities/init-users";
-import { FaFilter } from "react-icons/fa";
+import { FaFilter, FaFileExcel } from "react-icons/fa";
 import type { IUser } from "../../../domain/meta/i-user";
+import { exportToExcel } from "../../../domain/utilities/export-to-excel";
 
 // Components
 import FormModal from "../../components/tasks-board/form-modal";
@@ -166,6 +167,43 @@ const TasksBoard = () => {
     toast.success(t("tasksBoard.taskMovedSuccessfully"));
   };
 
+  const handleExport = () => {
+    const headers = {
+      title: t("tasksBoard.taskTitle"),
+      description: t("tasksBoard.taskDescription"),
+      assignedTo: t("tasksBoard.assignedTo"),
+      estimatedTime: t("tasksBoard.estimatedTime"),
+      priority: t("tasksBoard.priority"),
+    };
+
+    const mapTask = (task: any) => {
+      const assignedUser = users.find(
+        (user: IUser) => user.id === task.assignedTo,
+      );
+
+      return {
+        title: task.title,
+        description: task.description,
+        assignedTo: assignedUser?.name,
+        estimatedTime: (t("tasksBoard.estimatedTimeHours") as any)(
+          task.estimatedTime,
+        ),
+        priority: t(`enums.TaskPriorityEnum.${task.priority}`),
+      };
+    };
+
+    const sheets = columns.map((col) => ({
+      name: col.title,
+      data: col.list.map(mapTask),
+      headers,
+    }));
+
+    exportToExcel([], {
+      fileName: "tasks-board",
+      sheets,
+    });
+  };
+
   useEffect(() => {
     const savedBoard = localStorage.getItem("tasksBoard");
 
@@ -206,6 +244,20 @@ const TasksBoard = () => {
             >
               <div className="d-flex gap-2 justify-content-center">
                 <FaFilter className="mt-1" /> {t("expenseTracker.filter")}
+              </div>
+            </button>
+            <button
+              className="btn btn-outline-success"
+              disabled={
+                !todoList?.length &&
+                !inProgressList?.length &&
+                !reviewList?.length &&
+                !doneList?.length
+              }
+              onClick={handleExport}
+            >
+              <div className="d-flex gap-2 justify-content-center">
+                <FaFileExcel className="mt-1" /> {t("tasksBoard.export")}
               </div>
             </button>
             <button
