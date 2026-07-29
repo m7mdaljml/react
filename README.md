@@ -14,6 +14,7 @@ Each navigation tab represents a standalone project.
 | 2   | 🌤️ Weather App     |
 | 3   | 💰 Expense Tracker |
 | 4   | 📋 Tasks Board     |
+| 5   | 🤖 AI Assistant    |
 
 ---
 
@@ -148,3 +149,31 @@ A Kanban-style task management board built with React. It allows users to create
 - Filtering with filter state management and filtering tasks
 
 <!-- ./Fourth Tab : Tasks Board -->
+
+---
+
+<!-- Fifth Tab : AI Assistant -->
+
+## 🤖 Fifth Tab: AI Assistant
+
+An AI-powered chat assistant built with React that integrates with the Groq API (Llama 3.1). It provides a conversational interface for users to interact with an LLM in real time.
+
+### 🚀 Features
+
+- 💬 Real-time chat with AI assistant
+- 🧠 Powered by Groq API (llama-3.1-8b-instant)
+- ⏳ Loading state with status indicator
+- 🎨 Clean, centered card UI styled with Bootstrap
+- 🌐 Multi-language support using i18n (EN / AR / FR)
+- ⚠️ Error handling with user-friendly messages
+
+### 🧠 Technical Highlights
+
+- Built with **React + TypeScript + Vite**
+- API client using native `fetch` with Bearer token auth
+- Environment variables via `.env` (`VITE_AI_API_URL`, `VITE_AI_API_KEY`)
+- Chat state managed with `useState` hooks
+- Modular component structure: `ChatWindow`, `MessageBubble`, `ChatInput`
+- Centered layout with Bootstrap cards and utility classes
+
+<!-- ./Fifth Tab : AI Assistant -->
