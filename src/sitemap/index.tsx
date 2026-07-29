@@ -9,6 +9,7 @@ import ExpenseTrackerLayout from "../presentation/pages/expense-tracker";
 import ExpenseDashboard from "../presentation/pages/expense-tracker/content/dashboard";
 import ExpenseTransactions from "../presentation/pages/expense-tracker/content/transactions";
 import TasksBoard from "../presentation/pages/tasks-board";
+import AIChat from "../presentation/pages/ai-chat";
 
 export const routes: RouteObject[] = [
   {
@@ -78,6 +79,17 @@ export const routes: RouteObject[] = [
             en: "Tasks Board",
             ar: "لوحة المهام ",
             fr: "Tableau des tâches",
+          },
+        },
+      },
+      {
+        path: "ai-assistant",
+        element: <AIChat />,
+        handle: {
+          label: {
+            en: "AI assistant",
+            ar: "المساعد الذكي ",
+            fr: "Assistant IA",
           },
         },
       },
