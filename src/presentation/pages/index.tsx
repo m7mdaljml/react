@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Navbar from "../components/navbar";
+import AIChatWidget from "../components/ai-chat/AIChatWidget";
 
 const Presentation = () => {
   const { i18n, t } = useTranslation();
@@ -46,6 +47,8 @@ const Presentation = () => {
       <div>
         <Outlet />
       </div>
+
+      <AIChatWidget />
     </div>
   );
 };
