@@ -123,13 +123,14 @@ export default {
   },
 
   aiChat: {
-    assistant: "Assistant IA",
+    assistant: "Assistant IA du Projet",
     typing: "En train d'écrire...",
     online: "En ligne",
-    startConversation: "Démarrer une conversation",
-    typeBelow: "Tapez un message ci-dessous",
-    inputPlaceholder: "Tapez un message...",
+    startConversation: "Interrogez-moi sur ce projet",
+    typeBelow: "Je ne peux répondre qu'aux questions sur le contenu de ce site",
+    inputPlaceholder: "Questionnez sur le site...",
     send: "Envoyer",
+    delete: "Supprimer la conversation",
     errorResponse: "Erreur : échec de la récupération de la réponse.",
   },
   enums: {

@@ -114,13 +114,14 @@ export default {
     export: "تصدير",
   },
   aiChat: {
-    assistant: "المساعد الذكي",
+    assistant: "المساعد الذكي للمشروع",
     typing: "جارٍ الكتابة...",
     online: "متصل",
-    startConversation: "ابدأ محادثة",
-    typeBelow: "اكتب رسالة أدناه",
-    inputPlaceholder: "اكتب رسالة...",
+    startConversation: "اسألني عن هذا المشروع",
+    typeBelow: "يمكنني الإجابة فقط عن أسئلة حول محتوى هذا الموقع",
+    inputPlaceholder: "اسأل عن الموقع...",
     send: "إرسال",
+    delete: "حذف المحادثة",
     errorResponse: "خطأ: فشل في جلب الرد.",
   },
   enums: {

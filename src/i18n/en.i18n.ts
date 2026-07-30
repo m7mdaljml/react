@@ -112,13 +112,14 @@ export default {
     export: "Export",
   },
   aiChat: {
-    assistant: "AI Assistant",
+    assistant: "Project AI Assistant",
     typing: "Typing...",
     online: "Online",
-    startConversation: "Start a conversation",
-    typeBelow: "Type a message below",
-    inputPlaceholder: "Type a message...",
+    startConversation: "Ask me about this project",
+    typeBelow: "I can only answer questions about this website's content",
+    inputPlaceholder: "Ask about the website...",
     send: "Send",
+    delete: "Delete conversation",
     errorResponse: "Error: failed to fetch response.",
   },
   enums: {

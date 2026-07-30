@@ -1,33 +1,41 @@
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
-import MessageBubble from "./MessageBubble"
-import ChatInput from "./ChatInput"
-import { fetchAiResponse } from "../../services/aiApi"
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { FaTrash } from "react-icons/fa";
+import MessageBubble from "./MessageBubble";
+import ChatInput from "./ChatInput";
+import { fetchAiResponse } from "../../services/aiApi";
 
 interface Message {
-  role: "user" | "assistant"
-  content: string
+  role: "user" | "assistant";
+  content: string;
 }
 
 const ChatWindow = () => {
-  const { t } = useTranslation()
-  const [messages, setMessages] = useState<Message[]>([])
-  const [loading, setLoading] = useState(false)
+  const { t } = useTranslation();
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const sendMessage = async (text: string) => {
-    const userMsg: Message = { role: "user", content: text }
-    setMessages(prev => [...prev, userMsg])
-    setLoading(true)
+    const userMsg: Message = { role: "user", content: text };
+    setMessages((prev) => [...prev, userMsg]);
+    setLoading(true);
     try {
-      const response = await fetchAiResponse([...messages, userMsg])
-      const aiMsg: Message = { role: "assistant", content: response }
-      setMessages(prev => [...prev, aiMsg])
+      const response = await fetchAiResponse([...messages, userMsg]);
+      const aiMsg: Message = { role: "assistant", content: response };
+      setMessages((prev) => [...prev, aiMsg]);
     } catch {
-      setMessages(prev => [...prev, { role: "assistant", content: t("aiChat.errorResponse") }])
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: t("aiChat.errorResponse") },
+      ]);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
+
+  const deleteConversation = () => {
+    setMessages([]);
+  };
 
   return (
     <div
@@ -53,11 +61,22 @@ const ChatWindow = () => {
           </div>
           <div>
             <h6 className="mb-0">{t("aiChat.assistant")}</h6>
-            <small className="text-muted">{loading ? t("aiChat.typing") : t("aiChat.online")}</small>
+            <small className="text-muted">
+              {loading ? t("aiChat.typing") : t("aiChat.online")}
+            </small>
           </div>
+          {!loading && messages.length > 0 && (
+            <button
+              className="btn btn-outline-danger btn-sm ms-auto px-3 rounded-pill d-flex align-items-center gap-2"
+              onClick={deleteConversation}
+              title={t("aiChat.delete")}
+            >
+              {t("aiChat.delete")} <FaTrash />
+            </button>
+          )}
         </div>
 
-        <div className="card-body overflow-auto d-flex flex-column gap-2" style={{ flex: 1 }}>
+        <div className="card-body overflow-auto d-flex flex-column gap-2">
           {messages.length === 0 && (
             <div className="text-center text-muted m-auto">
               <p className="mb-1 fw-medium">{t("aiChat.startConversation")}</p>
@@ -74,7 +93,7 @@ const ChatWindow = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ChatWindow
+export default ChatWindow;

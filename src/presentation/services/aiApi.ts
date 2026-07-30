@@ -1,10 +1,22 @@
+import { KNOWLEDGE_BASE } from "./knowledge-base";
+
 const API_URL = import.meta.env.VITE_AI_API_URL;
 const API_KEY = import.meta.env.VITE_AI_API_KEY;
 
 export interface ChatMessage {
-  role: "user" | "assistant";
+  role: "system" | "user" | "assistant";
   content: string;
 }
+
+const SYSTEM_PROMPT = `You are an AI assistant for a React learning project. You ONLY have knowledge about this project. Use the following project information to answer questions:
+
+${KNOWLEDGE_BASE}
+
+Rules:
+- ONLY answer questions related to this project's content (features, technologies, tabs, implementation details).
+- If a question is NOT about this project, respond with: "My knowledge is limited to this project only. I cannot answer questions about other topics, Do you have another question?"
+- Be concise and accurate. Use the project information above as your single source of truth.
+- Do not make up information that is not in the knowledge base above.`;
 
 export async function fetchAiResponse(
   messages: ChatMessage[],
@@ -17,7 +29,7 @@ export async function fetchAiResponse(
     },
     body: JSON.stringify({
       model: "llama-3.1-8b-instant",
-      messages,
+      messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
     }),
   });
 
