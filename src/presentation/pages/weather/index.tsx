@@ -50,6 +50,8 @@ const getBackgroundClass = (weatherId: number) => {
 };
 
 const WeatherApp = () => {
+  const API_ID = import.meta.env.VITE_WEATHER_API_ID;
+
   const { t } = useTranslation();
 
   const [city, setCity] = useState("");
@@ -73,7 +75,7 @@ const WeatherApp = () => {
         {
           params: {
             q: trimmed,
-            appid: "bd5e378503939ddaee76f12ad7a97608",
+            appid: API_ID,
             units: "metric",
           },
         },
