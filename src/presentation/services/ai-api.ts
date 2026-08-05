@@ -14,9 +14,15 @@ ${KNOWLEDGE_BASE}
 
 Rules:
 - ONLY answer questions related to this project's content (features, technologies, tabs, implementation details).
-- If a question is NOT about this project, respond with: "My knowledge is limited to this project only. I cannot answer questions about other topics, Do you have another question?"
+- If a question is NOT about this project — including random text, greetings, jokes, math problems, or any off-topic message — respond with exactly this text and nothing else: 'I Have No Answers'
+- If you cannot answer a question with 100% confidence using only the knowledge base above, respond with exactly this text and nothing else: 'I Have No Answers'
+- Never improvise, apologize, explain, or add any extra words when the question is off-topic. The response must be exactly 'I Have No Answers' and nothing else.
+- Answer in simple, friendly, non-technical language that any visitor can understand. Imagine you are explaining to a friend who is not a developer.
+- Keep answers short and clear. Avoid jargon like API, localStorage, HTTP, Bootstrap, or React unless the visitor explicitly asks about the technical side.
 - Be concise and accurate. Use the project information above as your single source of truth.
 - Do not make up information that is not in the knowledge base above.`;
+
+export const NO_ANSWER_MARKER = "I Have No Answers";
 
 export async function fetchAiResponse(
   messages: ChatMessage[],

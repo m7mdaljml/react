@@ -132,6 +132,14 @@ export default {
     send: "Envoyer",
     delete: "Supprimer la conversation",
     errorResponse: "Erreur : échec de la récupération de la réponse.",
+    noAnswerMessage: "Je n'ai pas trouvé de réponse à cette question. Si vous souhaitez que le propriétaire du site vous contacte, veuillez saisir votre e-mail.",
+    leaveEmail: "Laissez votre e-mail ci-dessous et le propriétaire du site vous répondra au sujet de votre question.",
+    emailPlaceholder: "Votre adresse e-mail",
+    emailInvalid: "Veuillez saisir une adresse e-mail valide",
+    emailSendError: "Échec de l'envoi de l'e-mail. Veuillez réessayer.",
+    emailSentBody: "Merci ! Le propriétaire du site vous contactera à {{email}}.",
+    sending: "Envoi en cours...",
+    cancel: "Annuler",
   },
   enums: {
     TransactionTypeEnum: {

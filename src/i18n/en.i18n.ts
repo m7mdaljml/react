@@ -121,6 +121,14 @@ export default {
     send: "Send",
     delete: "Delete conversation",
     errorResponse: "Error: failed to fetch response.",
+    noAnswerMessage: "I couldn't find an answer to this question. If you'd like the site owner to contact you about it, please enter your email.",
+    leaveEmail: "Leave your email below and the site owner will get back to you about your question.",
+    emailPlaceholder: "Your email address",
+    emailInvalid: "Please enter a valid email address",
+    emailSendError: "Failed to send the email. Please try again.",
+    emailSentBody: "Thanks! The site owner will contact you at {{email}}.",
+    sending: "Sending...",
+    cancel: "Cancel",
   },
   enums: {
     TransactionTypeEnum: {

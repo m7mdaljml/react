@@ -1,46 +1,31 @@
-import { useState, useRef, useEffect } from "react"
-import { useTranslation } from "react-i18next"
-import { FaTrash, FaTimes } from "react-icons/fa"
-import { fetchAiResponse } from "../../services/aiApi"
-import MessageBubble from "./MessageBubble"
-import ChatInput from "./ChatInput"
-
-interface Message {
-  role: "user" | "assistant"
-  content: string
-}
+import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { FaTrash, FaTimes } from "react-icons/fa";
+import MessageBubble from "./message-bubble";
+import ChatInput from "./chat-input";
+import EmailPrompt from "./email-prompt";
+import { useAIChat } from "../../../domain/utilities/use-ai-chat";
 
 const AIChatWidget = () => {
-  const { t } = useTranslation()
-  const [open, setOpen] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([])
-  const [loading, setLoading] = useState(false)
-  const bodyRef = useRef<HTMLDivElement>(null)
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const {
+    messages,
+    loading,
+    awaitingEmail,
+    pendingQuestion,
+    sendMessage,
+    handleEmailSent,
+    handleEmailCancel,
+    deleteConversation,
+  } = useAIChat();
+  const bodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (open && bodyRef.current) {
-      bodyRef.current.scrollTop = bodyRef.current.scrollHeight
+      bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
     }
-  }, [messages, open])
-
-  const sendMessage = async (text: string) => {
-    const userMsg: Message = { role: "user", content: text }
-    setMessages(prev => [...prev, userMsg])
-    setLoading(true)
-    try {
-      const response = await fetchAiResponse([...messages, userMsg])
-      const aiMsg: Message = { role: "assistant", content: response }
-      setMessages(prev => [...prev, aiMsg])
-    } catch {
-      setMessages(prev => [...prev, { role: "assistant", content: t("aiChat.errorResponse") }])
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const deleteConversation = () => {
-    setMessages([])
-  }
+  }, [messages, open]);
 
   return (
     <>
@@ -94,13 +79,26 @@ const AIChatWidget = () => {
           >
             {messages.length === 0 && (
               <div className="text-center text-muted m-auto">
-                <p className="mb-1 fw-medium">{t("aiChat.startConversation")}</p>
+                <p className="mb-1 fw-medium">
+                  {t("aiChat.startConversation")}
+                </p>
                 <small>{t("aiChat.typeBelow")}</small>
               </div>
             )}
             {messages.map((msg, idx) => (
-              <MessageBubble key={idx} sender={msg.role} content={msg.content} />
+              <MessageBubble
+                key={idx}
+                sender={msg.role}
+                content={msg.content}
+              />
             ))}
+            {awaitingEmail && (
+              <EmailPrompt
+                question={pendingQuestion}
+                onSent={handleEmailSent}
+                onCancel={handleEmailCancel}
+              />
+            )}
           </div>
 
           <div className="card-footer bg-white border-top-0 px-3 py-2">
@@ -110,7 +108,7 @@ const AIChatWidget = () => {
       )}
 
       <button
-        onClick={() => setOpen(prev => !prev)}
+        onClick={() => setOpen((prev) => !prev)}
         style={{
           position: "fixed",
           bottom: 20,
@@ -133,7 +131,7 @@ const AIChatWidget = () => {
         </span>
       </button>
     </>
-  )
-}
+  );
+};
 
-export default AIChatWidget
+export default AIChatWidget;
